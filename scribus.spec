@@ -1,6 +1,6 @@
 Name:           scribus
 Version:        1.2
-Release:        0.fdr.3
+Release:        3
 Summary:        DeskTop Publishing app in QT.
 
 Group:          Applications/Productivity
