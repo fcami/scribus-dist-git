@@ -1,14 +1,13 @@
 Name:           scribus
-Version:        1.2
-Release:        3
+Version:        1.2.1
+Release:        1
 Summary:        DeskTop Publishing app in QT.
 
 Group:          Applications/Productivity
 License:        GPL
 URL:            http://www.scribus.net/
-Source0:        http://www.scribus.org.uk/downloads/1.2/scribus-1.2.tar.bz2
+Source0:        http://www.scribus.org.uk/downloads/1.2.1/scribus-1.2.1.tar.bz2
 Source1:        scribus.xml
-Source2:        scribus.desktop
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires:  cups-devel
@@ -19,6 +18,7 @@ BuildRequires:  libjpeg-devel
 BuildRequires:  libpng-devel
 BuildRequires:  libtiff-devel
 BuildRequires:  libtool
+BuildRequires:  libxml2-devel
 BuildRequires:  openssl-devel
 BuildRequires:  python-devel >= 2.2
 BuildRequires:  qt-devel >= 1:3.0.5
@@ -30,6 +30,8 @@ Requires(post): shared-mime-info
 Requires(post): desktop-file-utils
 Requires(postun): shared-mime-info
 Requires(postun): desktop-file-utils
+
+Obsoletes:      scribus-i18n-en
 
 
 %description
@@ -71,10 +73,10 @@ install -p -D -m0644 scribus/icons/scribusicon.png ${RPM_BUILD_ROOT}%{_datadir}/
 install -p -D -m0644 scribus/icons/scribusdoc.png ${RPM_BUILD_ROOT}%{_datadir}/pixmaps/x-scribus.png
 install -p -D -m0644 %{SOURCE1} ${RPM_BUILD_ROOT}%{_datadir}/mime/packages/scribus.xml
 
-desktop-file-install --vendor fedora                   \
-  --dir ${RPM_BUILD_ROOT}%{_datadir}/applications      \
-  --add-category X-Fedora                              \
-  %{SOURCE2}
+desktop-file-install --vendor fedora                \
+  --dir ${RPM_BUILD_ROOT}%{_datadir}/applications   \
+  --add-category X-Fedora                           \
+ scribus.desktop
 
 find ${RPM_BUILD_ROOT} -type f -name "*.la" -exec rm -f {} ';'
 
@@ -102,6 +104,8 @@ update-desktop-database %{_datadir}/applications > /dev/null 2>&1 || :
 %{_datadir}/pixmaps/*
 %{_datadir}/scribus/
 %{_libdir}/scribus/
+%{_mandir}/man1/*
+%{_mandir}/pl/man1/*
 
 %files devel
 %defattr(-,root,root,-)
@@ -110,6 +114,12 @@ update-desktop-database %{_datadir}/applications > /dev/null 2>&1 || :
 
 
 %changelog
+* Sun Jan 09 2005 Phillip Compton <pcompton[AT]proteinmedia.com> - 1.2.1-1
+- 1.2.1.
+
+* Sat Dec 04 2004 Phillip Compton <pcompton[AT]proteinmedia.com> - 1.2.1-0.1.cvs20041118
+- cvs snapshot.
+
 * Wed Nov 11 2004 Phillip Compton <pcompton[AT]proteinmedia.com> - 1.2-0.fdr.3
 - Redirect output in post/postun, to avoid failure.
 
