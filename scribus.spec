@@ -1,38 +1,35 @@
 Name:           scribus
 Version:        1.2
-Release:        0.fdr.1.2
-Epoch:          0
+Release:        0.fdr.2
 Summary:        DeskTop Publishing app in QT.
 
 Group:          Applications/Productivity
 License:        GPL
 URL:            http://www.scribus.net/
 Source0:        http://www.scribus.org.uk/downloads/1.2/scribus-1.2.tar.bz2
-Source1:        scribus.applications
-Source2:        scribus.keys
-Source3:        scribus.xml
-Source4:        x-scribus.desktop
-Source5:        scribus.mime
+Source1:        scribus.xml
+Source2:        scribus.desktop
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
-BuildRequires:  qt-devel >= 1:3.0.5
-BuildRequires:  XFree86-devel
-BuildRequires:  zlib-devel
+BuildRequires:  cups-devel
+BuildRequires:  desktop-file-utils
+BuildRequires:  lcms-devel
+BuildRequires:  libart_lgpl-devel
 BuildRequires:  libjpeg-devel
 BuildRequires:  libpng-devel
 BuildRequires:  libtiff-devel
-BuildRequires:  cups-devel
-BuildRequires:  lcms-devel
-BuildRequires:  libart_lgpl-devel
-BuildRequires:  openssl-devel
 BuildRequires:  libtool
+BuildRequires:  openssl-devel
 BuildRequires:  python-devel >= 0:2.2
-BuildRequires:  desktop-file-utils
-Requires:       python >= 0:2.2
+BuildRequires:  qt-devel >= 1:3.0.5
+BuildRequires:  zlib-devel
 Requires:       ghostscript >= 0:7.07
+Requires:       python >= 0:2.2
 Requires:       tkinter
 Requires(post): shared-mime-info
+Requires(post): desktop-file-utils
 Requires(postun): shared-mime-info
+Requires(postun): desktop-file-utils
 
 
 %description
@@ -49,7 +46,7 @@ import/export and creation of color separations.
 %package        devel
 Summary:        Header files for Scribus.
 Group:          Development/Libraries
-Requires:       %{name} = %{epoch}:%{version}-%{release}
+Requires:       %{name} = %{version}-%{release}
 
 %description    devel
 Header files for Scribus.
@@ -72,16 +69,13 @@ rm -rf ${RPM_BUILD_ROOT}
 
 install -p -D -m0644 scribus/icons/scribusicon.png ${RPM_BUILD_ROOT}%{_datadir}/pixmaps/scribusicon.png
 install -p -D -m0644 scribus/icons/scribusdoc.png ${RPM_BUILD_ROOT}%{_datadir}/pixmaps/x-scribus.png
-install -p -D -m0644 %{SOURCE1} ${RPM_BUILD_ROOT}%{_datadir}/application-registry/scribus.applications
-install -p -D -m0644 %{SOURCE2} ${RPM_BUILD_ROOT}%{_datadir}/mime-info/scribus.keys
-install -p -D -m0644 %{SOURCE3} ${RPM_BUILD_ROOT}%{_datadir}/mime/packages/scribus.xml
-install -p -D -m0644 %{SOURCE4} ${RPM_BUILD_ROOT}%{_datadir}/mimelnk/application/x-scribus.desktop
-install -p -D -m0644 %{SOURCE5} ${RPM_BUILD_ROOT}%{_datadir}/mime-info/scribus.mime
+install -p -D -m0644 %{SOURCE1} ${RPM_BUILD_ROOT}%{_datadir}/mime/packages/scribus.xml
+
 desktop-file-install --vendor fedora                   \
   --dir ${RPM_BUILD_ROOT}%{_datadir}/applications      \
   --add-category Application                           \
   --add-category X-Fedora                              \
-  scribus.desktop
+  %{SOURCE2}
 
 find ${RPM_BUILD_ROOT} -type f -name "*.la" -exec rm -f {} ';'
 
@@ -92,25 +86,23 @@ rm -rf ${RPM_BUILD_ROOT}
 
 %post
 update-mime-database %{_datadir}/mime > /dev/null 2>&1 || : 
+update-desktop-database %{_datadir}/applications
 
 
 %postun
 update-mime-database %{_datadir}/mime > /dev/null 2>&1 || : 
+update-desktop-database %{_datadir}/applications
 
 
 %files
 %defattr(-,root,root,-)
 %doc AUTHORS ChangeLog COPYING README TODO
 %{_bindir}/scribus
-%{_libdir}/scribus/
-%{_datadir}/scribus/
-%{_datadir}/pixmaps/*
-%{_datadir}/applications/fedora-%{name}.desktop
-%{_datadir}/application-registry/scribus.applications
-%{_datadir}/mime-info/scribus.keys
-%{_datadir}/mime-info/scribus.mime
+%{_datadir}/applications/fedora-scribus.desktop
 %{_datadir}/mime/packages/scribus.xml
-%{_datadir}/mimelnk/application/x-scribus.desktop
+%{_datadir}/pixmaps/*
+%{_datadir}/scribus/
+%{_libdir}/scribus/
 
 %files devel
 %defattr(-,root,root,-)
@@ -119,6 +111,10 @@ update-mime-database %{_datadir}/mime > /dev/null 2>&1 || :
 
 
 %changelog
+* Wed Nov 10 2004 Phillip Compton <pcompton[AT]proteinmedia.com> - 1.2-0.fdr.2
+- Mime-type corrections for FC3.
+- Dropped redundent BR XFree86-devel.
+
 * Thu Aug 26 2004 Phillip Compton <pcompton[AT]proteinmedia.com> - 0:1.2-0.fdr.1
 - 1.2.
 - Dropping old obsoletes/provides (don't know of anyone using them).
