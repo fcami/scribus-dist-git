@@ -1,0 +1,8 @@
+[Desktop Entry]
+Encoding=UTF-8
+Comment=Scribus Document
+Icon=x-scribus.png
+Type=MimeType
+MimeType=application/x-scribus
+Patterns=*.sla;*.sla.gz;*.scd.gz;*.scd;
+Comment=Scribus Document

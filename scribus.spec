@@ -1,15 +1,18 @@
 Name:           scribus
-Version:        1.1.7
-Release:        0.fdr.3.1
+Version:        1.2
+Release:        0.fdr.1.2
 Epoch:          0
 Summary:        DeskTop Publishing app in QT.
 
 Group:          Applications/Productivity
 License:        GPL
 URL:            http://www.scribus.net/
-#Link from site does not allow direct download.
-#Source0:       http://ahnews.music.salford.ac.uk/scribus/scribus-1.1.7.tar.bz2
-Source0:        http://web2.altmuehlnet.de/fschmid/scribus-1.1.7.tar.bz2
+Source0:        http://www.scribus.org.uk/downloads/1.2/scribus-1.2.tar.bz2
+Source1:        scribus.applications
+Source2:        scribus.keys
+Source3:        scribus.xml
+Source4:        x-scribus.desktop
+Source5:        scribus.mime
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires:  qt-devel >= 1:3.0.5
@@ -28,10 +31,9 @@ BuildRequires:  desktop-file-utils
 Requires:       python >= 0:2.2
 Requires:       ghostscript >= 0:7.07
 Requires:       tkinter
+Requires(post): shared-mime-info
+Requires(postun): shared-mime-info
 
-Obsoletes:      scribus-svg
-Obsoletes:      scribus-scripting
-Provides:       scribus-scripting
 
 %description
 Scribus is a Layout program for GNU/Linux®, similar to Adobe® PageMaker™,
@@ -53,10 +55,8 @@ Requires:       %{name} = %{epoch}:%{version}-%{release}
 Header files for Scribus.
 
 
-
 %prep
-%setup -q
-
+%setup -q 
 
 
 %build
@@ -66,12 +66,17 @@ Header files for Scribus.
 make %{?_smp_mflags}
 
 
-
 %install
 rm -rf ${RPM_BUILD_ROOT}
 %makeinstall
 
 install -p -D -m0644 scribus/icons/scribusicon.png ${RPM_BUILD_ROOT}%{_datadir}/pixmaps/scribusicon.png
+install -p -D -m0644 scribus/icons/scribusdoc.png ${RPM_BUILD_ROOT}%{_datadir}/pixmaps/x-scribus.png
+install -p -D -m0644 %{SOURCE1} ${RPM_BUILD_ROOT}%{_datadir}/application-registry/scribus.applications
+install -p -D -m0644 %{SOURCE2} ${RPM_BUILD_ROOT}%{_datadir}/mime-info/scribus.keys
+install -p -D -m0644 %{SOURCE3} ${RPM_BUILD_ROOT}%{_datadir}/mime/packages/scribus.xml
+install -p -D -m0644 %{SOURCE4} ${RPM_BUILD_ROOT}%{_datadir}/mimelnk/application/x-scribus.desktop
+install -p -D -m0644 %{SOURCE5} ${RPM_BUILD_ROOT}%{_datadir}/mime-info/scribus.mime
 desktop-file-install --vendor fedora                   \
   --dir ${RPM_BUILD_ROOT}%{_datadir}/applications      \
   --add-category Application                           \
@@ -81,10 +86,16 @@ desktop-file-install --vendor fedora                   \
 find ${RPM_BUILD_ROOT} -type f -name "*.la" -exec rm -f {} ';'
 
 
-
 %clean
 rm -rf ${RPM_BUILD_ROOT}
 
+
+%post
+update-mime-database %{_datadir}/mime > /dev/null 2>&1 || : 
+
+
+%postun
+update-mime-database %{_datadir}/mime > /dev/null 2>&1 || : 
 
 
 %files
@@ -93,8 +104,13 @@ rm -rf ${RPM_BUILD_ROOT}
 %{_bindir}/scribus
 %{_libdir}/scribus/
 %{_datadir}/scribus/
-%{_datadir}/pixmaps/scribusicon.png
+%{_datadir}/pixmaps/*
 %{_datadir}/applications/fedora-%{name}.desktop
+%{_datadir}/application-registry/scribus.applications
+%{_datadir}/mime-info/scribus.keys
+%{_datadir}/mime-info/scribus.mime
+%{_datadir}/mime/packages/scribus.xml
+%{_datadir}/mimelnk/application/x-scribus.desktop
 
 %files devel
 %defattr(-,root,root,-)
@@ -102,8 +118,17 @@ rm -rf ${RPM_BUILD_ROOT}
 %{_includedir}/scribus/
 
 
-
 %changelog
+* Thu Aug 26 2004 Phillip Compton <pcompton[AT]proteinmedia.com> - 0:1.2-0.fdr.1
+- 1.2.
+- Dropping old obsoletes/provides (don't know of anyone using them).
+
+* Thu Aug 19 2004 Phillip Compton <pcompton[AT]proteinmedia.com> - 0:1.2-0.fdr.0.RC1
+- 1.2RC1.
+
+* Sat Aug 07 2004 Phillip Compton <pcompton[AT]proteinmedia.com> - 0:1.1.7-0.fdr.4
+- mime info/icon for .sla files.
+
 * Fri Jul 10 2004 Phillip Compton <pcompton[AT]proteinmedia.com> - 0:1.1.7-0.fdr.3
 - BuildReq openssl-devel (#1727).
 
