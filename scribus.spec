@@ -1,6 +1,6 @@
 Name:           scribus
 Version:        1.2
-Release:        0.fdr.2
+Release:        0.fdr.3
 Summary:        DeskTop Publishing app in QT.
 
 Group:          Applications/Productivity
@@ -20,11 +20,11 @@ BuildRequires:  libpng-devel
 BuildRequires:  libtiff-devel
 BuildRequires:  libtool
 BuildRequires:  openssl-devel
-BuildRequires:  python-devel >= 0:2.2
+BuildRequires:  python-devel >= 2.2
 BuildRequires:  qt-devel >= 1:3.0.5
 BuildRequires:  zlib-devel
-Requires:       ghostscript >= 0:7.07
-Requires:       python >= 0:2.2
+Requires:       ghostscript >= 7.07
+Requires:       python >= 2.2
 Requires:       tkinter
 Requires(post): shared-mime-info
 Requires(post): desktop-file-utils
@@ -73,7 +73,6 @@ install -p -D -m0644 %{SOURCE1} ${RPM_BUILD_ROOT}%{_datadir}/mime/packages/scrib
 
 desktop-file-install --vendor fedora                   \
   --dir ${RPM_BUILD_ROOT}%{_datadir}/applications      \
-  --add-category Application                           \
   --add-category X-Fedora                              \
   %{SOURCE2}
 
@@ -86,12 +85,12 @@ rm -rf ${RPM_BUILD_ROOT}
 
 %post
 update-mime-database %{_datadir}/mime > /dev/null 2>&1 || : 
-update-desktop-database %{_datadir}/applications
+update-desktop-database %{_datadir}/applications > /dev/null 2>&1 || :
 
 
 %postun
 update-mime-database %{_datadir}/mime > /dev/null 2>&1 || : 
-update-desktop-database %{_datadir}/applications
+update-desktop-database %{_datadir}/applications > /dev/null 2>&1 || :
 
 
 %files
@@ -111,6 +110,9 @@ update-desktop-database %{_datadir}/applications
 
 
 %changelog
+* Wed Nov 11 2004 Phillip Compton <pcompton[AT]proteinmedia.com> - 1.2-0.fdr.3
+- Redirect output in post/postun, to avoid failure.
+
 * Wed Nov 10 2004 Phillip Compton <pcompton[AT]proteinmedia.com> - 1.2-0.fdr.2
 - Mime-type corrections for FC3.
 - Dropped redundent BR XFree86-devel.
