@@ -1,0 +1,9 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=Scribus
+Comment=Desktop Publishing
+Exec=scribus
+Icon=scribusicon.png
+Terminal=false
+Type=Application
+Categories=Office;Application;
