@@ -1,13 +1,14 @@
 Name:           scribus
 Version:        1.2.1
-Release:        1
-Summary:        DeskTop Publishing app in QT.
+Release:        3
+Summary:        DeskTop Publishing application written in Qt
 
 Group:          Applications/Productivity
 License:        GPL
 URL:            http://www.scribus.net/
 Source0:        http://www.scribus.org.uk/downloads/1.2.1/scribus-1.2.1.tar.bz2
 Source1:        scribus.xml
+Patch0:         scribus-x86_64.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires:  cups-devel
@@ -21,7 +22,7 @@ BuildRequires:  libtool
 BuildRequires:  libxml2-devel
 BuildRequires:  openssl-devel
 BuildRequires:  python-devel >= 2.2
-BuildRequires:  qt-devel >= 1:3.0.5
+BuildRequires:  qt-devel >= 1:3.3
 BuildRequires:  zlib-devel
 Requires:       ghostscript >= 7.07
 Requires:       python >= 2.2
@@ -55,7 +56,8 @@ Header files for Scribus.
 
 
 %prep
-%setup -q 
+%setup -q
+%patch -p1 -b .x86_64
 
 
 %build
@@ -114,6 +116,12 @@ update-desktop-database %{_datadir}/applications > /dev/null 2>&1 || :
 
 
 %changelog
+* Sun Feb 06 2005 Phillip Compton <pcompton[AT]proteinmedia.com> - 1.2.1-3
+- Bumped BR on qt-devel to 3.3.
+
+* Thu Feb  3 2005 Michael Schwendt <mschwendt[AT]users.sf.net> - 1.2.1-2
+- Fix x86_64 build and summary.
+
 * Sun Jan 09 2005 Phillip Compton <pcompton[AT]proteinmedia.com> - 1.2.1-1
 - 1.2.1.
 

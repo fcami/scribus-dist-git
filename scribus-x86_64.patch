@@ -1,0 +1,24 @@
+diff -Nur scribus-1.2.1-orig/scribus/plugins/gettext/htmlim/Makefile.in scribus-1.2.1/scribus/plugins/gettext/htmlim/Makefile.in
+--- scribus-1.2.1-orig/scribus/plugins/gettext/htmlim/Makefile.in	2005-01-08 10:10:04.000000000 +0100
++++ scribus-1.2.1/scribus/plugins/gettext/htmlim/Makefile.in	2005-02-03 01:04:48.654806024 +0100
+@@ -287,7 +287,7 @@
+ target_vendor = @target_vendor@
+ x_includes = @x_includes@
+ x_libraries = @x_libraries@
+-pluginsdir = $(prefix)/lib/scribus/plugins/gettext
++pluginsdir = $(libdir)/scribus/plugins/gettext
+ SUBDIRS = 
+ plugins_LTLIBRARIES = libhtmlim.la
+ INCLUDES = $(LIBFREETYPE_CFLAGS) $(XML_CFLAGS) $(all_includes)
+diff -Nur scribus-1.2.1-orig/scribus/plugins/gettext/sxwim/Makefile.in scribus-1.2.1/scribus/plugins/gettext/sxwim/Makefile.in
+--- scribus-1.2.1-orig/scribus/plugins/gettext/sxwim/Makefile.in	2005-01-08 10:10:04.000000000 +0100
++++ scribus-1.2.1/scribus/plugins/gettext/sxwim/Makefile.in	2005-02-03 01:04:28.093931752 +0100
+@@ -303,7 +303,7 @@
+ target_vendor = @target_vendor@
+ x_includes = @x_includes@
+ x_libraries = @x_libraries@
+-pluginsdir = $(prefix)/lib/scribus/plugins/gettext
++pluginsdir = $(libdir)/scribus/plugins/gettext
+ SUBDIRS = 
+ plugins_LTLIBRARIES = libsxwimplugin.la
+ INCLUDES = $(LIBFREETYPE_CFLAGS) $(XML_CFLAGS) $(all_includes)
