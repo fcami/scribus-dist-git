@@ -88,12 +88,12 @@ rm -rf ${RPM_BUILD_ROOT}
 
 
 %post
-update-mime-database %{_datadir}/mime > /dev/null 2>&1 || : 
+update-mime-database %{_datadir}/mime > /dev/null 2>&1 || :
 update-desktop-database %{_datadir}/applications > /dev/null 2>&1 || :
 
 
 %postun
-update-mime-database %{_datadir}/mime > /dev/null 2>&1 || : 
+update-mime-database %{_datadir}/mime > /dev/null 2>&1 || :
 update-desktop-database %{_datadir}/applications > /dev/null 2>&1 || :
 
 
