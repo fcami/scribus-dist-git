@@ -1,14 +1,15 @@
 Name:           scribus
-Version:        1.1.3
-Release:        0.fdr.2.rh90
+Version:        1.1.7
+Release:        0.fdr.3.1
 Epoch:          0
 Summary:        DeskTop Publishing app in QT.
 
 Group:          Applications/Productivity
 License:        GPL
-URL:            http://web2.altmuehlnet.de/fschmid/
-Source0:        http://web2.altmuehlnet.de/fschmid/scribus-1.1.3.tar.gz
-Source1:        scribus.desktop
+URL:            http://www.scribus.net/
+#Link from site does not allow direct download.
+#Source0:       http://ahnews.music.salford.ac.uk/scribus/scribus-1.1.7.tar.bz2
+Source0:        http://web2.altmuehlnet.de/fschmid/scribus-1.1.7.tar.bz2
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires:  qt-devel >= 1:3.0.5
@@ -20,11 +21,13 @@ BuildRequires:  libtiff-devel
 BuildRequires:  cups-devel
 BuildRequires:  lcms-devel
 BuildRequires:  libart_lgpl-devel
+BuildRequires:  openssl-devel
 BuildRequires:  libtool
 BuildRequires:  python-devel >= 0:2.2
 BuildRequires:  desktop-file-utils
 Requires:       python >= 0:2.2
-Requires:       ghostscript >= 0:7.05
+Requires:       ghostscript >= 0:7.07
+Requires:       tkinter
 
 Obsoletes:      scribus-svg
 Obsoletes:      scribus-scripting
@@ -32,12 +35,13 @@ Provides:       scribus-scripting
 
 %description
 Scribus is a Layout program for GNU/Linux®, similar to Adobe® PageMaker™,
-QuarkXPress™ or Adobe® InDesign™, except that it is published under the GNU GPL.
+QuarkXPress™ or Adobe® InDesign™, except that it is published under the
+GNU GPL.
 
 While the goals of the program are for ease of use and simple easy to
-understand tools, Scribus offers support for professional publishing features,
-such as CMYK color, easy PDF creation, Encapsulated Postscript import/export
-and creation of color separations.
+understand tools, Scribus offers support for professional publishing
+features, such as CMYK color, easy PDF creation, Encapsulated Postscript
+import/export and creation of color separations.
 
 
 %package        devel
@@ -59,7 +63,7 @@ Header files for Scribus.
 [ -n "$QTDIR" ] || . %{_sysconfdir}/profile.d/qt.sh
 %configure  \
    --with-pythondir=%{_prefix}
-make
+make %{?_smp_mflags}
 
 
 
@@ -70,8 +74,9 @@ rm -rf ${RPM_BUILD_ROOT}
 install -p -D -m0644 scribus/icons/scribusicon.png ${RPM_BUILD_ROOT}%{_datadir}/pixmaps/scribusicon.png
 desktop-file-install --vendor fedora                   \
   --dir ${RPM_BUILD_ROOT}%{_datadir}/applications      \
+  --add-category Application                           \
   --add-category X-Fedora                              \
-  %{SOURCE1}
+  scribus.desktop
 
 find ${RPM_BUILD_ROOT} -type f -name "*.la" -exec rm -f {} ';'
 
@@ -86,18 +91,47 @@ rm -rf ${RPM_BUILD_ROOT}
 %defattr(-,root,root,-)
 %doc AUTHORS ChangeLog COPYING README TODO
 %{_bindir}/scribus
-%{_libdir}/scribus
+%{_libdir}/scribus/
+%{_datadir}/scribus/
 %{_datadir}/pixmaps/scribusicon.png
 %{_datadir}/applications/fedora-%{name}.desktop
 
 %files devel
 %defattr(-,root,root,-)
 %doc AUTHORS COPYING
-%{_includedir}/scribus
+%{_includedir}/scribus/
 
 
 
 %changelog
+* Fri Jul 10 2004 Phillip Compton <pcompton[AT]proteinmedia.com> - 0:1.1.7-0.fdr.3
+- BuildReq openssl-devel (#1727).
+
+* Thu Jun 10 2004 Phillip Compton <pcompton[AT]proteinmedia.com> - 0:1.1.7-0.fdr.2
+- Source0 allows direct download (#1727).
+- Req tkinter (#1727).
+
+* Sun Jun 06 2004 Phillip Compton <pcompton[AT]proteinmedia.com> - 0:1.1.7-0.fdr.1
+- Updated to 1.1.7.
+- Re-added _smp_mflags.
+
+* Mon May 24 2004 Phillip Compton <pcompton[AT]proteinmedia.com> - 0:1.1.6-0.fdr.3
+- Add Application Category to desktop entry.
+
+* Sun Apr 11 2004 Phillip Compton <pcompton[AT]proteinmedia.com> - 0:1.1.6-0.fdr.2
+- Bump ghostscript Req to 7.07.
+- URL scribus.net.
+
+* Tue Apr 06 2004 Phillip Compton <pcompton[AT]proteinmedia.com> - 0:1.1.6-0.fdr.1
+- Updated to 1.1.6.
+- Using upstream desktop entry.
+
+* Sat Feb 14 2004 Phillip Compton <pcompton[AT]proteinmedia.com> - 0:1.1.5-0.fdr.1
+- Updated to 1.1.5.
+
+* Sun Dec 21 2003 Phillip Compton <pcompton[AT]proteinmedia.com> - 0:1.1.4-0.fdr.1
+- Updated to 1.1.4.
+
 * Thu Dec 04 2003 Phillip Compton <pcompton[AT]proteinmedia.com> - 0:1.1.3-0.fdr.2
 - Dropped LDFLAGS="-lm"
 - Added --with-pythondir=%%{_prefix}
