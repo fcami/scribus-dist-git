@@ -1,6 +1,6 @@
 Name:           scribus
 Version:        1.2.1
-Release:        4
+Release: 5
 
 Summary:        DeskTop Publishing application written in Qt
 
@@ -117,6 +117,9 @@ update-desktop-database %{_datadir}/applications > /dev/null 2>&1 || :
 
 
 %changelog
+* Sun May 22 2005 Jeremy Katz <katzj@redhat.com> - 1.2.1-5
+- rebuild on all arches
+
 * Fri Apr  7 2005 Michael Schwendt <mschwendt[AT]users.sf.net>
 - rebuilt
 
