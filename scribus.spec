@@ -1,15 +1,16 @@
 Name:           scribus
-Version:        1.2.1
-Release:        6
+Version:        1.2.4.1
+Release:	1%{?dist}
 
 Summary:        DeskTop Publishing application written in Qt
 
 Group:          Applications/Productivity
 License:        GPL
 URL:            http://www.scribus.net/
-Source0:        http://www.scribus.org.uk/downloads/1.2.1/scribus-1.2.1.tar.bz2
+Source0:        http://www.scribus.org.uk/downloads/1.2.4.1/scribus-1.2.4.1.tar.bz2
 Source1:        scribus.xml
-Patch0:         scribus-x86_64.patch
+Source2:	scribus.desktop
+#Patch0:         scribus-x86_64.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires:  cups-devel
@@ -22,24 +23,42 @@ BuildRequires:  libtiff-devel
 BuildRequires:  libtool
 BuildRequires:  libxml2-devel
 BuildRequires:  openssl-devel
-BuildRequires:  python-devel >= 2.2
+BuildRequires:  python-devel >= 2.3
 BuildRequires:  qt-devel >= 1:3.3
 BuildRequires:  zlib-devel
+BuildRequires:  freetype-devel
 Requires:       ghostscript >= 7.07
-Requires:       python >= 2.2
+Requires:       python >= 2.3
 Requires:       tkinter
 Requires(post): shared-mime-info
 Requires(post): desktop-file-utils
 Requires(postun): shared-mime-info
 Requires(postun): desktop-file-utils
 
-Obsoletes:      scribus-i18n-en
+Obsoletes:     scribus-i18n-en
+Obsoletes:     scribus-svg
+Obsoletes:     scribus-scripting
+Obsoletes:     scribus-short-words
+Obsoletes:     scribus-vnla
+Obsoletes:     scribus-i18en
+Obsoletes:     scribus-i18de
+Obsoletes:     scribus-i18fr
+Obsoletes:     scribus-templates
 
+Provides:      scribus-i18n-en
+Provides:      scribus-svg
+Provides:      scribus-scripting
+Provides:      scribus-short-words
+Provides:      scribus-vnla
+Provides:      scribus-i18en
+Provides:      scribus-i18de
+Provides:      scribus-i18fr
+Provides:      scribus-templates
 
 %description
-Scribus is a Layout program for GNU/Linux®, similar to Adobe® PageMaker™,
-QuarkXPress™ or Adobe® InDesign™, except that it is published under the
-GNU GPL.
+Scribus is an desktop open source page layout program with
+the aim of producing commercial grade output in PDF and
+Postscript, primarily, though not exclusively for Linux.
 
 While the goals of the program are for ease of use and simple easy to
 understand tools, Scribus offers support for professional publishing
@@ -48,7 +67,7 @@ import/export and creation of color separations.
 
 
 %package        devel
-Summary:        Header files for Scribus.
+Summary:        Header files for Scribus
 Group:          Development/Libraries
 Requires:       %{name} = %{version}-%{release}
 
@@ -58,7 +77,7 @@ Header files for Scribus.
 
 %prep
 %setup -q
-%patch -p1 -b .x86_64
+#%patch -p1 -b .x86_64
 
 
 %build
@@ -117,8 +136,26 @@ update-desktop-database %{_datadir}/applications > /dev/null 2>&1 || :
 
 
 %changelog
-* Thu Dec 22 2005 Luke Macken <lmacken@redhat.com> - 1.2.1-6
-- Rebuild against new openssl (Bug #174781)
+* Wed Jan 18 2006 Andreas Bierfert <andreas.bierfert[AT]lowlatency.de>
+1.2.4.1
+- version upgrade
+
+* Thu Jul 7 2005 Tom "spot" Callaway <tcallawa@redhat.com> 1.2.2.1-2
+- use dist tag for sanity between branches
+
+* Tue Jul 5 2005 P Linnell <mrdocs AT scribus.info> - 1.2.2.1-1
+- 1.2.2.1 released to fix crash on open with certain 1.2.1 docs
+
+* Sun Jul 3 2005 P Linnell <mrdocs AT scribus.info> - 1.2.2-0.fc4
+- 1.2.2 final
+
+* Tue Jun 28 2005 P Linnell <mrdocs AT scribus.info>- 1.2.2cvs-0
+- test build for 1.2.2cvs
+- Add freetype2 explicit build requirement
+- Add obsoletes. See PACKAGING in the source tarball
+- Change the description per PACKAGING
+- Bump required python. 2.2 is no longer supported.
+
 
 * Sun May 22 2005 Jeremy Katz <katzj@redhat.com> - 1.2.1-5
 - rebuild on all arches
