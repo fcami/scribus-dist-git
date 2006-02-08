@@ -1,6 +1,6 @@
 Name:           scribus
 Version:        1.2.4.1
-Release:	1%{?dist}
+Release:	3%{?dist}
 
 Summary:        DeskTop Publishing application written in Qt
 
@@ -10,7 +10,6 @@ URL:            http://www.scribus.net/
 Source0:        http://www.scribus.org.uk/downloads/1.2.4.1/scribus-1.2.4.1.tar.bz2
 Source1:        scribus.xml
 Source2:	scribus.desktop
-#Patch0:         scribus-x86_64.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires:  cups-devel
@@ -29,6 +28,7 @@ BuildRequires:  zlib-devel
 BuildRequires:  freetype-devel
 Requires:       ghostscript >= 7.07
 Requires:       python >= 2.3
+Requires:       python-imaging
 Requires:       tkinter
 Requires(post): shared-mime-info
 Requires(post): desktop-file-utils
@@ -136,8 +136,16 @@ update-desktop-database %{_datadir}/applications > /dev/null 2>&1 || :
 
 
 %changelog
+* Wed Feb 08 2006 Andreas Bierfert <andreas.bierfert[AT]lowlatency.de>
+1.2.4.1-3
+- add missing requires python-imaging
+
+* Sat Jan 21 2006 Andreas Bierfert <andreas.bierfert[AT]lowlatency.de>
+1.2.4.1-2
+- rebuild (#178494)
+
 * Wed Jan 18 2006 Andreas Bierfert <andreas.bierfert[AT]lowlatency.de>
-1.2.4.1
+1.2.4.1-1
 - version upgrade
 
 * Thu Jul 7 2005 Tom "spot" Callaway <tcallawa@redhat.com> 1.2.2.1-2
