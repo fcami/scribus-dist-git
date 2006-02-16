@@ -1,6 +1,6 @@
 Name:           scribus
 Version:        1.2.4.1
-Release:	3%{?dist}
+Release:	4%{?dist}
 
 Summary:        DeskTop Publishing application written in Qt
 
@@ -136,6 +136,10 @@ update-desktop-database %{_datadir}/applications > /dev/null 2>&1 || :
 
 
 %changelog
+* Thu Feb 16 2006 Andreas Bierfert <andreas.bierfert[AT]lowlatency.de>
+1.2.4.1-4
+- Rebuild for Fedora Extras 5
+
 * Wed Feb 08 2006 Andreas Bierfert <andreas.bierfert[AT]lowlatency.de>
 1.2.4.1-3
 - add missing requires python-imaging
