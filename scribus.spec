@@ -1,13 +1,13 @@
 Name:           scribus
-Version:        1.2.4.1
-Release:	4%{?dist}
+Version:        1.3.2
+Release:	1%{?dist}
 
 Summary:        DeskTop Publishing application written in Qt
 
 Group:          Applications/Productivity
 License:        GPL
 URL:            http://www.scribus.net/
-Source0:        http://www.scribus.org.uk/downloads/1.2.4.1/scribus-1.2.4.1.tar.bz2
+Source0:        http://www.scribus.org.uk/downloads/1.3.2/scribus-1.3.2.tar.bz2
 Source1:        scribus.xml
 Source2:	scribus.desktop
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
@@ -136,6 +136,10 @@ update-desktop-database %{_datadir}/applications > /dev/null 2>&1 || :
 
 
 %changelog
+* Sat Mar 18 2006 Andreas Bierfert <andreas.bierfert[AT]lowlatency.de>
+1.3.2-1
+- upgrade to beta version
+
 * Thu Feb 16 2006 Andreas Bierfert <andreas.bierfert[AT]lowlatency.de>
 1.2.4.1-4
 - Rebuild for Fedora Extras 5
