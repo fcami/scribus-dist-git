@@ -26,6 +26,7 @@ BuildRequires:  python-devel >= 2.3
 BuildRequires:  qt-devel >= 1:3.3
 BuildRequires:  zlib-devel
 BuildRequires:  freetype-devel
+BuildRequires:  gnutls-devel
 Requires:       ghostscript >= 7.07
 Requires:       python >= 2.3
 Requires:       python-imaging
@@ -139,6 +140,7 @@ update-desktop-database %{_datadir}/applications > /dev/null 2>&1 || :
 * Tue Mar 28 2006 Andreas Bierfert <andreas.bierfert[AT]lowlatency.de>
 1.3.3-1
 - version upgrade
+- add BR gnutls-devel
 
 * Sat Mar 18 2006 Andreas Bierfert <andreas.bierfert[AT]lowlatency.de>
 1.3.2-1
