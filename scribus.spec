@@ -1,6 +1,6 @@
 Name:           scribus
 Version:        1.3.3.2
-Release:	1%{?dist}
+Release:	2%{?dist}
 
 Summary:        DeskTop Publishing application written in Qt
 
@@ -135,8 +135,11 @@ update-desktop-database %{_datadir}/applications > /dev/null 2>&1 || :
 %doc AUTHORS COPYING
 %{_includedir}/scribus/
 
-
 %changelog
+* Sun Jun 18 2006 Andreas Bierfert <andreas.bierfert[AT]lowlatency.de>
+1.3.3.2-2
+- bump
+
 * Tue May 30 2006 Andreas Bierfert <andreas.bierfert[AT]lowlatency.de>
 1.3.3.2-1
 - version upgrade
