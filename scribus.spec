@@ -1,5 +1,5 @@
 Name:           scribus
-Version:        1.3.3.3
+Version:        1.3.3.4
 Release:	1%{?dist}
 
 Summary:        DeskTop Publishing application written in Qt
@@ -7,7 +7,7 @@ Summary:        DeskTop Publishing application written in Qt
 Group:          Applications/Productivity
 License:        GPL
 URL:            http://www.scribus.net/
-Source0:        http://dl.sf.net/scribus/scribus-1.3.3.3.tar.bz2
+Source0:        http://dl.sf.net/scribus/scribus-1.3.3.4.tar.bz2
 Source1:        scribus.xml
 Source2:	scribus.desktop
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
@@ -136,6 +136,10 @@ update-desktop-database %{_datadir}/applications > /dev/null 2>&1 || :
 %{_includedir}/scribus/
 
 %changelog
+* Wed Oct 04 2006 Andreas Bierfert <andreas.bierfert[AT]lowlatency.de>
+1.3.3.4-1
+- version upgrade
+
 * Fri Sep 15 2006 Andreas Bierfert <andreas.bierfert[AT]lowlatency.de>
 1.3.3.3-1
 - version upgrade (#205962)
