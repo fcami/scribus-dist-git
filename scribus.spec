@@ -1,6 +1,6 @@
 Name:           scribus
 Version:        1.3.4
-Release:	2%{?dist}
+Release:	3%{?dist}
 
 Summary:        DeskTop Publishing application written in Qt
 
@@ -84,7 +84,8 @@ Header files for Scribus.
 %build
 [ -n "$QTDIR" ] || . %{_sysconfdir}/profile.d/qt.sh
 %configure  \
-   --with-pythondir=%{_prefix}
+   --with-pythondir=%{_prefix} \
+   --with-extra-libs=%{_libdir}
 make %{?_smp_mflags}
 
 
@@ -137,6 +138,11 @@ update-desktop-database %{_datadir}/applications > /dev/null 2>&1 || :
 %{_includedir}/scribus/
 
 %changelog
+* Fri Dec 28 2007 Andreas Bierfert <andreas.bierfert[AT]lowlatency.de>
+- 1.3.4-3
+- fix inclusion of python scripts as proposed by Todd Zullinger (#312091)
+- fix desktop file
+
 * Thu Aug 23 2007 Andreas Bierfert <andreas.bierfert[AT]lowlatency.de>
 - 1.3.4-2
 - rebuild for buildid
