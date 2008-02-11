@@ -1,6 +1,6 @@
 Name:           scribus
 Version:        1.3.4
-Release:	3%{?dist}
+Release:	4%{?dist}
 
 Summary:        DeskTop Publishing application written in Qt
 
@@ -138,6 +138,9 @@ update-desktop-database %{_datadir}/applications > /dev/null 2>&1 || :
 %{_includedir}/scribus/
 
 %changelog
+* Mon Feb 11 2008 Andreas Bierfert <andreas.bierfert[AT]lowlatency.de> - 1.3.4-4
+- Rebuilt for gcc43
+
 * Fri Dec 28 2007 Andreas Bierfert <andreas.bierfert[AT]lowlatency.de>
 - 1.3.4-3
 - fix inclusion of python scripts as proposed by Todd Zullinger (#312091)
