@@ -1,6 +1,6 @@
 Name:           scribus
 Version:        1.3.4
-Release:	4%{?dist}
+Release:	5%{?dist}
 
 Summary:        DeskTop Publishing application written in Qt
 
@@ -138,6 +138,9 @@ update-desktop-database %{_datadir}/applications > /dev/null 2>&1 || :
 %{_includedir}/scribus/
 
 %changelog
+* Mon Feb 18 2008 Fedora Release Engineering <rel-eng@fedoraproject.org> - 1.3.4-5
+- Autorebuild for GCC 4.3
+
 * Mon Feb 11 2008 Andreas Bierfert <andreas.bierfert[AT]lowlatency.de> - 1.3.4-4
 - Rebuilt for gcc43
 
