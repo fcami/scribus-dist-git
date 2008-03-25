@@ -23,7 +23,7 @@ BuildRequires:  libtool
 BuildRequires:  libxml2-devel
 BuildRequires:  openssl-devel
 BuildRequires:  python-devel >= 2.3
-BuildRequires:  qt-devel >= 1:3.3
+BuildRequires:  qt3-devel
 BuildRequires:  zlib-devel
 BuildRequires:  freetype-devel
 BuildRequires:  gnutls-devel
