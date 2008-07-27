@@ -1,16 +1,19 @@
 Name:           scribus
-Version:        1.3.4
-Release:	5%{?dist}
+Version:        1.3.5
+Release:	0.3.12419svn%{?dist}
 
 Summary:        DeskTop Publishing application written in Qt
 
 Group:          Applications/Productivity
 License:        GPLv2+
 URL:            http://www.scribus.net/
-Source0:        http://dl.sf.net/scribus/scribus-1.3.4.tar.bz2
+# obtained via svn co -r 12419 svn://scribus.info/Scribus/trunk/Scribus
+Source0:        scribus-svn-12419.tar.bz2
 Source1:        scribus.xml
 Source2:	scribus.desktop
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
+
+BuildRequires:  cmake
 
 BuildRequires:  cups-devel
 BuildRequires:  desktop-file-utils
@@ -19,14 +22,15 @@ BuildRequires:  libart_lgpl-devel
 BuildRequires:  libjpeg-devel
 BuildRequires:  libpng-devel
 BuildRequires:  libtiff-devel
-BuildRequires:  libtool
 BuildRequires:  libxml2-devel
 BuildRequires:  openssl-devel
 BuildRequires:  python-devel >= 2.3
-BuildRequires:  qt3-devel
+BuildRequires:  python-imaging-devel
+BuildRequires:  qt-devel
 BuildRequires:  zlib-devel
 BuildRequires:  freetype-devel
 BuildRequires:  gnutls-devel
+BuildRequires:  cairo-devel
 Requires:       ghostscript >= 7.07
 Requires:       python >= 2.3
 Requires:       python-imaging
@@ -75,35 +79,34 @@ Requires:       %{name} = %{version}-%{release}
 %description    devel
 Header files for Scribus.
 
+%package        doc
+Summary:        Documentation files for Scribus
+Group:          Development/Tools
+Requires:       %{name} = %{version}-%{release}
+
+%description    doc
+%{summary}
 
 %prep
-%setup -q
-#%patch -p1 -b .x86_64
+%setup -q -n Scribus
 
 
 %build
-[ -n "$QTDIR" ] || . %{_sysconfdir}/profile.d/qt.sh
-%configure  \
-   --with-pythondir=%{_prefix} \
-   --with-extra-libs=%{_libdir}
-make %{?_smp_mflags}
-
+mkdir build
+cd build
+%cmake -DOPENSYNC_LIBEXEC_DIR=%{_libexecdir} \
+    -DCMAKE_SKIP_RPATH=YES  ../
+make VERBOSE=1 %{?_smp_mflags}
 
 %install
 rm -rf ${RPM_BUILD_ROOT}
-%makeinstall
+cd build
+make install DESTDIR=$RPM_BUILD_ROOT
 
-install -p -D -m0644 scribus/icons/scribusicon.png ${RPM_BUILD_ROOT}%{_datadir}/pixmaps/scribusicon.png
-install -p -D -m0644 scribus/icons/scribusdoc.png ${RPM_BUILD_ROOT}%{_datadir}/pixmaps/x-scribus.png
-install -p -D -m0644 %{SOURCE1} ${RPM_BUILD_ROOT}%{_datadir}/mime/packages/scribus.xml
-
-desktop-file-install --vendor fedora                \
-  --dir ${RPM_BUILD_ROOT}%{_datadir}/applications   \
-  --add-category X-Fedora                           \
- scribus.desktop
+install -p -D -m0644 ${RPM_BUILD_ROOT}%{_datadir}/scribus/icons/scribusicon.png ${RPM_BUILD_ROOT}%{_datadir}/pixmaps/scribusicon.png
+install -p -D -m0644 ${RPM_BUILD_ROOT}%{_datadir}/scribus/icons/scribusdoc.png ${RPM_BUILD_ROOT}%{_datadir}/pixmaps/x-scribus.png
 
 find ${RPM_BUILD_ROOT} -type f -name "*.la" -exec rm -f {} ';'
-
 
 %clean
 rm -rf ${RPM_BUILD_ROOT}
@@ -121,10 +124,11 @@ update-desktop-database %{_datadir}/applications > /dev/null 2>&1 || :
 
 %files
 %defattr(-,root,root,-)
-%doc AUTHORS ChangeLog COPYING README TODO
+%doc AUTHORS ChangeLog ChangeLogSVN COPYING README TODO
 %{_bindir}/scribus
-%{_datadir}/applications/fedora-scribus.desktop
+#%{_datadir}/applications/fedora-scribus.desktop
 %{_datadir}/mime/packages/scribus.xml
+%{_datadir}/mimelnk/application/*scribus.desktop
 %{_datadir}/pixmaps/*
 %{_datadir}/scribus/
 %{_libdir}/scribus/
@@ -137,7 +141,34 @@ update-desktop-database %{_datadir}/applications > /dev/null 2>&1 || :
 %doc AUTHORS COPYING
 %{_includedir}/scribus/
 
+%files doc
+%defattr(-,root,root,-)
+%lang(cd) %{_datadir}/doc/%{name}-1.3.5svn/cs/*
+%lang(de) %{_datadir}/doc/%{name}-1.3.5svn/de/*
+%lang(en) %{_datadir}/doc/%{name}-1.3.5svn/en/*
+%lang(fr) %{_datadir}/doc/%{name}-1.3.5svn/fr/*
+%lang(pl) %{_datadir}/doc/%{name}-1.3.5svn/pl/*
+%{_datadir}/doc/%{name}-1.3.5svn/AUTHORS
+%{_datadir}/doc/%{name}-1.3.5svn/BUILDING
+%{_datadir}/doc/%{name}-1.3.5svn/ChangeLog
+%{_datadir}/doc/%{name}-1.3.5svn/ChangeLogSVN
+%{_datadir}/doc/%{name}-1.3.5svn/COPYING
+%{_datadir}/doc/%{name}-1.3.5svn/NEWS
+%{_datadir}/doc/%{name}-1.3.5svn/README*
+%{_datadir}/doc/%{name}-1.3.5svn/TODO
+%{_datadir}/doc/%{name}-1.3.5svn/PACKAGING
+
+ 
+
 %changelog
+* Sun Jul 27 2008 Andreas Bierfert <andreas.bierfert[AT]lowlatency.de>
+- 1.3.5-0.3.12419svn
+- new svn snapshot
+
+* Mon Jul 21 2008 Andreas Bierfert <andreas.bierfert[AT]lowlatency.de>
+- 1.3.5-0.2.12404svn
+- svn snapshot
+
 * Mon Feb 18 2008 Fedora Release Engineering <rel-eng@fedoraproject.org> - 1.3.4-5
 - Autorebuild for GCC 4.3
 
