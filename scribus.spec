@@ -1,6 +1,6 @@
 Name:           scribus
 Version:        1.3.5
-Release:	0.3.12419svn%{?dist}
+Release:	0.4.12516svn%{?dist}
 
 Summary:        DeskTop Publishing application written in Qt
 
@@ -161,6 +161,10 @@ update-desktop-database %{_datadir}/applications > /dev/null 2>&1 || :
  
 
 %changelog
+* Fri Sep 05 2008 Andreas Bierfert <andreas.bierfert[AT]lowlatency.de>
+- 1.3.5-0.4.12516svn
+- new svn snapshot
+
 * Sun Jul 27 2008 Andreas Bierfert <andreas.bierfert[AT]lowlatency.de>
 - 1.3.5-0.3.12419svn
 - new svn snapshot
