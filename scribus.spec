@@ -7,8 +7,8 @@ Summary:        DeskTop Publishing application written in Qt
 Group:          Applications/Productivity
 License:        GPLv2+
 URL:            http://www.scribus.net/
-# obtained via svn co -r 12419 svn://scribus.info/Scribus/trunk/Scribus
-Source0:        scribus-svn-12419.tar.bz2
+# obtained via svn co -r 12516 svn://scribus.info/Scribus/trunk/Scribus
+Source0:        scribus-svn-12516.tar.bz2
 Source1:        scribus.xml
 Source2:	scribus.desktop
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
