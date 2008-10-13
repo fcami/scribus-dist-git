@@ -1,6 +1,6 @@
 Name:           scribus
 Version:        1.3.5
-Release:	0.4.12516svn%{?dist}
+Release:        0.5.12516svn%{?dist}
 
 Summary:        DeskTop Publishing application written in Qt
 
@@ -10,7 +10,6 @@ URL:            http://www.scribus.net/
 # obtained via svn co -r 12516 svn://scribus.info/Scribus/trunk/Scribus
 Source0:        scribus-svn-12516.tar.bz2
 Source1:        scribus.xml
-Source2:	scribus.desktop
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires:  cmake
@@ -35,10 +34,7 @@ Requires:       ghostscript >= 7.07
 Requires:       python >= 2.3
 Requires:       python-imaging
 Requires:       tkinter
-Requires(post): shared-mime-info
-Requires(post): desktop-file-utils
-Requires(postun): shared-mime-info
-Requires(postun): desktop-file-utils
+Requires:       shared-mime-info
 
 Obsoletes:     scribus-i18n-en
 Obsoletes:     scribus-svg
@@ -90,23 +86,46 @@ Requires:       %{name} = %{version}-%{release}
 %prep
 %setup -q -n Scribus
 
+# recode man page to UTF-8
+pushd scribus/manpages
+iconv -f ISO8859-2 -t UTF-8 scribus.1.pl > tmp
+touch -r scribus.1.pl tmp
+mv tmp scribus.1.pl
+popd
+
+# fix permissions
+chmod a-x scribus/pageitem_latexframe.h
+
+# remove zero-length source files
+rm -f scribus/canvasgesture_pan.*
+
 
 %build
 mkdir build
-cd build
+pushd build
 %cmake -DOPENSYNC_LIBEXEC_DIR=%{_libexecdir} \
     -DCMAKE_SKIP_RPATH=YES  ../
 make VERBOSE=1 %{?_smp_mflags}
+popd
+
 
 %install
 rm -rf ${RPM_BUILD_ROOT}
-cd build
+pushd build
 make install DESTDIR=$RPM_BUILD_ROOT
+popd
 
 install -p -D -m0644 ${RPM_BUILD_ROOT}%{_datadir}/scribus/icons/scribusicon.png ${RPM_BUILD_ROOT}%{_datadir}/pixmaps/scribusicon.png
 install -p -D -m0644 ${RPM_BUILD_ROOT}%{_datadir}/scribus/icons/scribusdoc.png ${RPM_BUILD_ROOT}%{_datadir}/pixmaps/x-scribus.png
 
 find ${RPM_BUILD_ROOT} -type f -name "*.la" -exec rm -f {} ';'
+
+# install the global desktop file
+rm -f ${RPM_BUILD_ROOT}%{_datadir}/mimelnk/application/*scribus.desktop
+desktop-file-install --vendor="fedora"                      \
+    --dir=${RPM_BUILD_ROOT}%{_datadir}/applications         \
+    scribus.desktop
+
 
 %clean
 rm -rf ${RPM_BUILD_ROOT}
@@ -114,21 +133,19 @@ rm -rf ${RPM_BUILD_ROOT}
 
 %post
 update-mime-database %{_datadir}/mime > /dev/null 2>&1 || :
-update-desktop-database %{_datadir}/applications > /dev/null 2>&1 || :
 
 
 %postun
 update-mime-database %{_datadir}/mime > /dev/null 2>&1 || :
-update-desktop-database %{_datadir}/applications > /dev/null 2>&1 || :
 
 
 %files
 %defattr(-,root,root,-)
 %doc AUTHORS ChangeLog ChangeLogSVN COPYING README TODO
 %{_bindir}/scribus
-#%{_datadir}/applications/fedora-scribus.desktop
+%{_datadir}/applications/fedora-scribus.desktop
 %{_datadir}/mime/packages/scribus.xml
-%{_datadir}/mimelnk/application/*scribus.desktop
+#%{_datadir}/mimelnk/application/*scribus.desktop
 %{_datadir}/pixmaps/*
 %{_datadir}/scribus/
 %{_libdir}/scribus/
@@ -161,6 +178,10 @@ update-desktop-database %{_datadir}/applications > /dev/null 2>&1 || :
  
 
 %changelog
+* Mon Oct 13 2008 Dan Horák <dan[AT]danny.cz> 1.3.5-0.5.12516svn
+- install global desktop file instead of KDE-only one (#461124)
+- little cleanup
+
 * Fri Sep 05 2008 Andreas Bierfert <andreas.bierfert[AT]lowlatency.de>
 - 1.3.5-0.4.12516svn
 - new svn snapshot
