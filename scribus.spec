@@ -1,6 +1,6 @@
 Name:           scribus
 Version:        1.3.5
-Release:        0.5.12516svn%{?dist}
+Release:        0.6.12516svn%{?dist}
 
 Summary:        DeskTop Publishing application written in Qt
 
@@ -178,6 +178,9 @@ update-mime-database %{_datadir}/mime > /dev/null 2>&1 || :
  
 
 %changelog
+* Sun Nov 30 2008 Ignacio Vazquez-Abrams <ivazqueznet+rpm@gmail.com> - 1.3.5-0.6.12516svn
+- Rebuild for Python 2.6
+
 * Mon Oct 13 2008 Dan Horák <dan[AT]danny.cz> 1.3.5-0.5.12516svn
 - install global desktop file instead of KDE-only one (#461124)
 - little cleanup
