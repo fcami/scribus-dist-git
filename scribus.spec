@@ -1,6 +1,6 @@
 Name:           scribus
 Version:        1.3.5
-Release:        0.6.12516svn%{?dist}
+Release:        0.7.12516svn%{?dist}
 
 Summary:        DeskTop Publishing application written in Qt
 
@@ -160,11 +160,12 @@ update-mime-database %{_datadir}/mime > /dev/null 2>&1 || :
 
 %files doc
 %defattr(-,root,root,-)
-%lang(cd) %{_datadir}/doc/%{name}-1.3.5svn/cs/*
-%lang(de) %{_datadir}/doc/%{name}-1.3.5svn/de/*
-%lang(en) %{_datadir}/doc/%{name}-1.3.5svn/en/*
-%lang(fr) %{_datadir}/doc/%{name}-1.3.5svn/fr/*
-%lang(pl) %{_datadir}/doc/%{name}-1.3.5svn/pl/*
+%dir %{_datadir}/doc/%{name}-1.3.5svn
+%lang(cd) %{_datadir}/doc/%{name}-1.3.5svn/cs
+%lang(de) %{_datadir}/doc/%{name}-1.3.5svn/de
+%lang(en) %{_datadir}/doc/%{name}-1.3.5svn/en
+%lang(fr) %{_datadir}/doc/%{name}-1.3.5svn/fr
+%lang(pl) %{_datadir}/doc/%{name}-1.3.5svn/pl
 %{_datadir}/doc/%{name}-1.3.5svn/AUTHORS
 %{_datadir}/doc/%{name}-1.3.5svn/BUILDING
 %{_datadir}/doc/%{name}-1.3.5svn/ChangeLog
@@ -178,6 +179,9 @@ update-mime-database %{_datadir}/mime > /dev/null 2>&1 || :
  
 
 %changelog
+* Tue Dec  2 2008 Dan Horák <dan[AT]danny.cz> - 1.3.5-0.7.12516svn
+- fix directory ownership in doc subpackage (#474041)
+
 * Sun Nov 30 2008 Ignacio Vazquez-Abrams <ivazqueznet+rpm@gmail.com> - 1.3.5-0.6.12516svn
 - Rebuild for Python 2.6
 
