@@ -1,6 +1,6 @@
 Name:           scribus
 Version:        1.3.5
-Release:        0.8.12516svn%{?dist}
+Release:        0.9.12516svn%{?dist}
 
 Summary:        DeskTop Publishing application written in Qt
 
@@ -179,6 +179,9 @@ update-mime-database %{_datadir}/mime > /dev/null 2>&1 || :
  
 
 %changelog
+* Sat Jan 17 2009 Tomas Mraz <tmraz@redhat.com> - 1.3.4-0.9.12516svn
+- rebuild with new openssl
+
 * Thu Dec 04 2008 Ignacio Vazquez-Abrams <ivazqueznet+rpm@gmail.com> - 1.3.5-0.8.12516svn
 - Rebuild for Python 2.6
 
