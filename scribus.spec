@@ -1,6 +1,6 @@
 Name:           scribus
 Version:        1.3.5
-Release:        0.9.12516svn%{?dist}
+Release:        0.10.12516svn%{?dist}
 
 Summary:        DeskTop Publishing application written in Qt
 
@@ -179,6 +179,9 @@ update-mime-database %{_datadir}/mime > /dev/null 2>&1 || :
  
 
 %changelog
+* Wed Feb 25 2009 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.3.5-0.10.12516svn
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_11_Mass_Rebuild
+
 * Sat Jan 17 2009 Tomas Mraz <tmraz@redhat.com> - 1.3.4-0.9.12516svn
 - rebuild with new openssl
 
