@@ -1,14 +1,14 @@
 Name:           scribus
 Version:        1.3.5
-Release:        0.10.12516svn%{?dist}
+Release:        0.11.20090329svn13359%{?dist}
 
 Summary:        DeskTop Publishing application written in Qt
 
 Group:          Applications/Productivity
 License:        GPLv2+
 URL:            http://www.scribus.net/
-# obtained via svn co -r 12516 svn://scribus.info/Scribus/trunk/Scribus
-Source0:        scribus-svn-12516.tar.bz2
+# obtained via svn export -r 13359 svn://scribus.info/Scribus/trunk/Scribus scribus; tar cjvf ...
+Source0:        scribus-svn13359.tar.bz2
 Source1:        scribus.xml
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
@@ -30,6 +30,8 @@ BuildRequires:  zlib-devel
 BuildRequires:  freetype-devel
 BuildRequires:  gnutls-devel
 BuildRequires:  cairo-devel
+BuildRequires:  aspell-devel
+BuildRequires:  boost-devel
 Requires:       ghostscript >= 7.07
 Requires:       python >= 2.3
 Requires:       python-imaging
@@ -84,7 +86,7 @@ Requires:       %{name} = %{version}-%{release}
 %{summary}
 
 %prep
-%setup -q -n Scribus
+%setup -q -n %{name}
 
 # recode man page to UTF-8
 pushd scribus/manpages
@@ -95,9 +97,6 @@ popd
 
 # fix permissions
 chmod a-x scribus/pageitem_latexframe.h
-
-# remove zero-length source files
-rm -f scribus/canvasgesture_pan.*
 
 
 %build
@@ -115,7 +114,7 @@ pushd build
 make install DESTDIR=$RPM_BUILD_ROOT
 popd
 
-install -p -D -m0644 ${RPM_BUILD_ROOT}%{_datadir}/scribus/icons/scribusicon.png ${RPM_BUILD_ROOT}%{_datadir}/pixmaps/scribusicon.png
+install -p -D -m0644 ${RPM_BUILD_ROOT}%{_datadir}/scribus/icons/scribus.png ${RPM_BUILD_ROOT}%{_datadir}/pixmaps/scribus.png
 install -p -D -m0644 ${RPM_BUILD_ROOT}%{_datadir}/scribus/icons/scribusdoc.png ${RPM_BUILD_ROOT}%{_datadir}/pixmaps/x-scribus.png
 
 find ${RPM_BUILD_ROOT} -type f -name "*.la" -exec rm -f {} ';'
@@ -175,10 +174,17 @@ update-mime-database %{_datadir}/mime > /dev/null 2>&1 || :
 %{_datadir}/doc/%{name}-1.3.5svn/README*
 %{_datadir}/doc/%{name}-1.3.5svn/TODO
 %{_datadir}/doc/%{name}-1.3.5svn/PACKAGING
+%{_datadir}/doc/%{name}-1.3.5svn/LINKS
+%{_datadir}/doc/%{name}-1.3.5svn/TRANSLATION
 
  
 
 %changelog
+* Sun Mar 29 2009 Dan Horák <dan[AT]danny.cz> - 1.3.5-0.11.20090329svn13359
+- update to revision 13359
+- add aspell-devel and boost-devel as BR
+- update release tag to conform to the pre-release versioning guideline
+
 * Wed Feb 25 2009 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.3.5-0.10.12516svn
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_11_Mass_Rebuild
 
