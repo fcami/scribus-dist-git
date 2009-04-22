@@ -1,15 +1,13 @@
 Name:           scribus
 Version:        1.3.5
-Release:        0.11.20090329svn13359%{?dist}
+Release:        0.12.beta%{?dist}
 
 Summary:        DeskTop Publishing application written in Qt
 
 Group:          Applications/Productivity
 License:        GPLv2+
 URL:            http://www.scribus.net/
-# obtained via svn export -r 13359 svn://scribus.info/Scribus/trunk/Scribus scribus; tar cjvf ...
-Source0:        scribus-svn13359.tar.bz2
-Source1:        scribus.xml
+Source0:        http://downloads.sourceforge.net/%{name}/%{name}-%{version}.beta.tar.bz2
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires:  cmake
@@ -38,25 +36,6 @@ Requires:       python-imaging
 Requires:       tkinter
 Requires:       shared-mime-info
 
-Obsoletes:     scribus-i18n-en
-Obsoletes:     scribus-svg
-Obsoletes:     scribus-scripting
-Obsoletes:     scribus-short-words
-Obsoletes:     scribus-vnla
-Obsoletes:     scribus-i18en
-Obsoletes:     scribus-i18de
-Obsoletes:     scribus-i18fr
-Obsoletes:     scribus-templates
-
-Provides:      scribus-i18n-en
-Provides:      scribus-svg
-Provides:      scribus-scripting
-Provides:      scribus-short-words
-Provides:      scribus-vnla
-Provides:      scribus-i18en
-Provides:      scribus-i18de
-Provides:      scribus-i18fr
-Provides:      scribus-templates
 
 %description
 Scribus is an desktop open source page layout program with
@@ -81,12 +60,16 @@ Header files for Scribus.
 Summary:        Documentation files for Scribus
 Group:          Development/Tools
 Requires:       %{name} = %{version}-%{release}
+%if 0%{?fedora} > 9
+BuildArch:      noarch
+%endif
+
 
 %description    doc
 %{summary}
 
 %prep
-%setup -q -n %{name}
+%setup -q -n %{name}-%{version}.beta
 
 # recode man page to UTF-8
 pushd scribus/manpages
@@ -144,7 +127,6 @@ update-mime-database %{_datadir}/mime > /dev/null 2>&1 || :
 %{_bindir}/scribus
 %{_datadir}/applications/fedora-scribus.desktop
 %{_datadir}/mime/packages/scribus.xml
-#%{_datadir}/mimelnk/application/*scribus.desktop
 %{_datadir}/pixmaps/*
 %{_datadir}/scribus/
 %{_libdir}/scribus/
@@ -159,27 +141,32 @@ update-mime-database %{_datadir}/mime > /dev/null 2>&1 || :
 
 %files doc
 %defattr(-,root,root,-)
-%dir %{_datadir}/doc/%{name}-1.3.5svn
-%lang(cd) %{_datadir}/doc/%{name}-1.3.5svn/cs
-%lang(de) %{_datadir}/doc/%{name}-1.3.5svn/de
-%lang(en) %{_datadir}/doc/%{name}-1.3.5svn/en
-%lang(fr) %{_datadir}/doc/%{name}-1.3.5svn/fr
-%lang(pl) %{_datadir}/doc/%{name}-1.3.5svn/pl
-%{_datadir}/doc/%{name}-1.3.5svn/AUTHORS
-%{_datadir}/doc/%{name}-1.3.5svn/BUILDING
-%{_datadir}/doc/%{name}-1.3.5svn/ChangeLog
-%{_datadir}/doc/%{name}-1.3.5svn/ChangeLogSVN
-%{_datadir}/doc/%{name}-1.3.5svn/COPYING
-%{_datadir}/doc/%{name}-1.3.5svn/NEWS
-%{_datadir}/doc/%{name}-1.3.5svn/README*
-%{_datadir}/doc/%{name}-1.3.5svn/TODO
-%{_datadir}/doc/%{name}-1.3.5svn/PACKAGING
-%{_datadir}/doc/%{name}-1.3.5svn/LINKS
-%{_datadir}/doc/%{name}-1.3.5svn/TRANSLATION
+%dir %{_datadir}/doc/%{name}-1.3.5.beta
+%lang(cd) %{_datadir}/doc/%{name}-1.3.5.beta/cs
+%lang(de) %{_datadir}/doc/%{name}-1.3.5.beta/de
+%lang(en) %{_datadir}/doc/%{name}-1.3.5.beta/en
+%lang(fr) %{_datadir}/doc/%{name}-1.3.5.beta/fr
+%lang(pl) %{_datadir}/doc/%{name}-1.3.5.beta/pl
+%{_datadir}/doc/%{name}-1.3.5.beta/AUTHORS
+%{_datadir}/doc/%{name}-1.3.5.beta/BUILDING
+%{_datadir}/doc/%{name}-1.3.5.beta/ChangeLog
+%{_datadir}/doc/%{name}-1.3.5.beta/ChangeLogSVN
+%{_datadir}/doc/%{name}-1.3.5.beta/COPYING
+%{_datadir}/doc/%{name}-1.3.5.beta/NEWS
+%{_datadir}/doc/%{name}-1.3.5.beta/README*
+%{_datadir}/doc/%{name}-1.3.5.beta/TODO
+%{_datadir}/doc/%{name}-1.3.5.beta/PACKAGING
+%{_datadir}/doc/%{name}-1.3.5.beta/LINKS
+%{_datadir}/doc/%{name}-1.3.5.beta/TRANSLATION
 
  
 
 %changelog
+* Wed Apr 22 2009 Dan Horák <dan[AT]danny.cz> - 1.3.5-0.12.beta
+- update to 1.3.5.beta
+- make docs subpackage noarch
+- drop outdated Obsoletes/Provides
+
 * Sun Mar 29 2009 Dan Horák <dan[AT]danny.cz> - 1.3.5-0.11.20090329svn13359
 - update to revision 13359
 - add aspell-devel and boost-devel as BR
