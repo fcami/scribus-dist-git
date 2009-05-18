@@ -1,6 +1,6 @@
 Name:           scribus
 Version:        1.3.5
-Release:        0.12.beta%{?dist}
+Release:        0.13.beta%{?dist}
 
 Summary:        DeskTop Publishing application written in Qt
 
@@ -30,6 +30,7 @@ BuildRequires:  gnutls-devel
 BuildRequires:  cairo-devel
 BuildRequires:  aspell-devel
 BuildRequires:  boost-devel
+BuildRequires:  podofo-devel
 Requires:       ghostscript >= 7.07
 Requires:       python >= 2.3
 Requires:       python-imaging
@@ -162,6 +163,9 @@ update-mime-database %{_datadir}/mime > /dev/null 2>&1 || :
  
 
 %changelog
+* Mon May 18 2009 Dan Horák <dan[AT]danny.cz> - 1.3.5-0.13.beta
+- rebuilt with podofo enabled
+
 * Wed Apr 22 2009 Dan Horák <dan[AT]danny.cz> - 1.3.5-0.12.beta
 - update to 1.3.5.beta
 - make docs subpackage noarch
