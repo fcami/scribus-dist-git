@@ -1,13 +1,13 @@
 Name:           scribus
 Version:        1.3.5
-Release:        0.13.beta%{?dist}
+Release:        0.14.rc2%{?dist}
 
 Summary:        DeskTop Publishing application written in Qt
 
 Group:          Applications/Productivity
 License:        GPLv2+
 URL:            http://www.scribus.net/
-Source0:        http://downloads.sourceforge.net/%{name}/%{name}-%{version}.beta.tar.bz2
+Source0:        http://downloads.sourceforge.net/%{name}/%{name}-%{version}.rc2.tar.bz2
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires:  cmake
@@ -70,7 +70,7 @@ BuildArch:      noarch
 %{summary}
 
 %prep
-%setup -q -n %{name}-%{version}.beta
+%setup -q -n %{name}-%{version}.rc2
 
 # recode man page to UTF-8
 pushd scribus/manpages
@@ -142,27 +142,30 @@ update-mime-database %{_datadir}/mime > /dev/null 2>&1 || :
 
 %files doc
 %defattr(-,root,root,-)
-%dir %{_datadir}/doc/%{name}-1.3.5.beta
-%lang(cd) %{_datadir}/doc/%{name}-1.3.5.beta/cs
-%lang(de) %{_datadir}/doc/%{name}-1.3.5.beta/de
-%lang(en) %{_datadir}/doc/%{name}-1.3.5.beta/en
-%lang(fr) %{_datadir}/doc/%{name}-1.3.5.beta/fr
-%lang(pl) %{_datadir}/doc/%{name}-1.3.5.beta/pl
-%{_datadir}/doc/%{name}-1.3.5.beta/AUTHORS
-%{_datadir}/doc/%{name}-1.3.5.beta/BUILDING
-%{_datadir}/doc/%{name}-1.3.5.beta/ChangeLog
-%{_datadir}/doc/%{name}-1.3.5.beta/ChangeLogSVN
-%{_datadir}/doc/%{name}-1.3.5.beta/COPYING
-%{_datadir}/doc/%{name}-1.3.5.beta/NEWS
-%{_datadir}/doc/%{name}-1.3.5.beta/README*
-%{_datadir}/doc/%{name}-1.3.5.beta/TODO
-%{_datadir}/doc/%{name}-1.3.5.beta/PACKAGING
-%{_datadir}/doc/%{name}-1.3.5.beta/LINKS
-%{_datadir}/doc/%{name}-1.3.5.beta/TRANSLATION
+%dir %{_datadir}/doc/%{name}-1.3.5.rc2
+%lang(cd) %{_datadir}/doc/%{name}-1.3.5.rc2/cs
+%lang(de) %{_datadir}/doc/%{name}-1.3.5.rc2/de
+%lang(en) %{_datadir}/doc/%{name}-1.3.5.rc2/en
+%lang(fr) %{_datadir}/doc/%{name}-1.3.5.rc2/fr
+%lang(pl) %{_datadir}/doc/%{name}-1.3.5.rc2/pl
+%{_datadir}/doc/%{name}-1.3.5.rc2/AUTHORS
+%{_datadir}/doc/%{name}-1.3.5.rc2/BUILDING
+%{_datadir}/doc/%{name}-1.3.5.rc2/ChangeLog
+%{_datadir}/doc/%{name}-1.3.5.rc2/ChangeLogSVN
+%{_datadir}/doc/%{name}-1.3.5.rc2/COPYING
+%{_datadir}/doc/%{name}-1.3.5.rc2/NEWS
+%{_datadir}/doc/%{name}-1.3.5.rc2/README*
+%{_datadir}/doc/%{name}-1.3.5.rc2/TODO
+%{_datadir}/doc/%{name}-1.3.5.rc2/PACKAGING
+%{_datadir}/doc/%{name}-1.3.5.rc2/LINKS
+%{_datadir}/doc/%{name}-1.3.5.rc2/TRANSLATION
 
  
 
 %changelog
+* Thu Jun  4 2009 Dan Horák <dan[AT]danny.cz> - 1.3.5-0.14.rc2
+- update to 1.3.5.beta
+
 * Mon May 18 2009 Dan Horák <dan[AT]danny.cz> - 1.3.5-0.13.beta
 - rebuilt with podofo enabled
 
