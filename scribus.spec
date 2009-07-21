@@ -1,13 +1,15 @@
 Name:           scribus
 Version:        1.3.5
-Release:        0.14.rc2%{?dist}
+Release:        0.15.rc3%{?dist}
 
 Summary:        DeskTop Publishing application written in Qt
 
 Group:          Applications/Productivity
 License:        GPLv2+
 URL:            http://www.scribus.net/
-Source0:        http://downloads.sourceforge.net/%{name}/%{name}-%{version}.rc2.tar.bz2
+Source0:        http://downloads.sourceforge.net/%{name}/%{name}-%{version}.rc3.tar.bz2
+Patch0:         %{name}-1.3.5-system-hyphen.patch
+Patch1:         %{name}-1.3.5-install-headers.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires:  cmake
@@ -31,6 +33,7 @@ BuildRequires:  cairo-devel
 BuildRequires:  aspell-devel
 BuildRequires:  boost-devel
 BuildRequires:  podofo-devel
+BuildRequires:  hyphen-devel
 Requires:       ghostscript >= 7.07
 Requires:       python >= 2.3
 Requires:       python-imaging
@@ -63,6 +66,7 @@ Group:          Development/Tools
 Requires:       %{name} = %{version}-%{release}
 %if 0%{?fedora} > 9
 BuildArch:      noarch
+Obsoletes:      %{name}-doc < 1.3.5-0.12.beta
 %endif
 
 
@@ -70,7 +74,9 @@ BuildArch:      noarch
 %{summary}
 
 %prep
-%setup -q -n %{name}-%{version}.rc2
+%setup -q -n %{name}-%{version}.rc3
+%patch0 -p1 -b .system-hyphen
+%patch1 -p1 -b .install-headers
 
 # recode man page to UTF-8
 pushd scribus/manpages
@@ -86,8 +92,8 @@ chmod a-x scribus/pageitem_latexframe.h
 %build
 mkdir build
 pushd build
-%cmake -DOPENSYNC_LIBEXEC_DIR=%{_libexecdir} \
-    -DCMAKE_SKIP_RPATH=YES  ../
+%cmake -DOPENSYNC_LIBEXEC_DIR=%{_libexecdir} ..
+
 make VERBOSE=1 %{?_smp_mflags}
 popd
 
@@ -102,6 +108,9 @@ install -p -D -m0644 ${RPM_BUILD_ROOT}%{_datadir}/scribus/icons/scribus.png ${RP
 install -p -D -m0644 ${RPM_BUILD_ROOT}%{_datadir}/scribus/icons/scribusdoc.png ${RPM_BUILD_ROOT}%{_datadir}/pixmaps/x-scribus.png
 
 find ${RPM_BUILD_ROOT} -type f -name "*.la" -exec rm -f {} ';'
+
+# remove empty dirs in %{_includedir}
+rm -rf ${RPM_BUILD_ROOT}%{_includedir}/%{name}/{dicts,doc,dtd,editorconfig,icons,keysets,loremipsum,manpages,profiles,swatches,templates,unicodemap}
 
 # install the global desktop file
 rm -f ${RPM_BUILD_ROOT}%{_datadir}/mimelnk/application/*scribus.desktop
@@ -125,12 +134,12 @@ update-mime-database %{_datadir}/mime > /dev/null 2>&1 || :
 %files
 %defattr(-,root,root,-)
 %doc AUTHORS ChangeLog ChangeLogSVN COPYING README TODO
-%{_bindir}/scribus
+%{_bindir}/%{name}
 %{_datadir}/applications/fedora-scribus.desktop
 %{_datadir}/mime/packages/scribus.xml
 %{_datadir}/pixmaps/*
-%{_datadir}/scribus/
-%{_libdir}/scribus/
+%{_datadir}/%{name}
+%{_libdir}/%{name}
 %{_mandir}/man1/*
 %{_mandir}/pl/man1/*
 %{_mandir}/de/man1/*
@@ -138,33 +147,38 @@ update-mime-database %{_datadir}/mime > /dev/null 2>&1 || :
 %files devel
 %defattr(-,root,root,-)
 %doc AUTHORS COPYING
-%{_includedir}/scribus/
+%{_includedir}/%{name}
 
 %files doc
 %defattr(-,root,root,-)
-%dir %{_datadir}/doc/%{name}-1.3.5.rc2
-%lang(cd) %{_datadir}/doc/%{name}-1.3.5.rc2/cs
-%lang(de) %{_datadir}/doc/%{name}-1.3.5.rc2/de
-%lang(en) %{_datadir}/doc/%{name}-1.3.5.rc2/en
-%lang(fr) %{_datadir}/doc/%{name}-1.3.5.rc2/fr
-%lang(pl) %{_datadir}/doc/%{name}-1.3.5.rc2/pl
-%{_datadir}/doc/%{name}-1.3.5.rc2/AUTHORS
-%{_datadir}/doc/%{name}-1.3.5.rc2/BUILDING
-%{_datadir}/doc/%{name}-1.3.5.rc2/ChangeLog
-%{_datadir}/doc/%{name}-1.3.5.rc2/ChangeLogSVN
-%{_datadir}/doc/%{name}-1.3.5.rc2/COPYING
-%{_datadir}/doc/%{name}-1.3.5.rc2/NEWS
-%{_datadir}/doc/%{name}-1.3.5.rc2/README*
-%{_datadir}/doc/%{name}-1.3.5.rc2/TODO
-%{_datadir}/doc/%{name}-1.3.5.rc2/PACKAGING
-%{_datadir}/doc/%{name}-1.3.5.rc2/LINKS
-%{_datadir}/doc/%{name}-1.3.5.rc2/TRANSLATION
+%dir %{_datadir}/doc/%{name}-1.3.5.rc3
+%lang(cd) %{_datadir}/doc/%{name}-1.3.5.rc3/cs
+%lang(de) %{_datadir}/doc/%{name}-1.3.5.rc3/de
+%lang(en) %{_datadir}/doc/%{name}-1.3.5.rc3/en
+%lang(fr) %{_datadir}/doc/%{name}-1.3.5.rc3/fr
+%lang(pl) %{_datadir}/doc/%{name}-1.3.5.rc3/pl
+%{_datadir}/doc/%{name}-1.3.5.rc3/AUTHORS
+%{_datadir}/doc/%{name}-1.3.5.rc3/BUILDING
+%{_datadir}/doc/%{name}-1.3.5.rc3/ChangeLog
+%{_datadir}/doc/%{name}-1.3.5.rc3/ChangeLogSVN
+%{_datadir}/doc/%{name}-1.3.5.rc3/COPYING
+%{_datadir}/doc/%{name}-1.3.5.rc3/NEWS
+%{_datadir}/doc/%{name}-1.3.5.rc3/README*
+%{_datadir}/doc/%{name}-1.3.5.rc3/TODO
+%{_datadir}/doc/%{name}-1.3.5.rc3/PACKAGING
+%{_datadir}/doc/%{name}-1.3.5.rc3/LINKS
+%{_datadir}/doc/%{name}-1.3.5.rc3/TRANSLATION
 
- 
 
 %changelog
+* Tue Jul 21 2009 Dan Horák <dan[AT]danny.cz> - 1.3.5-0.15.rc3
+- update to 1.3.5-rc3
+- use system hyphen library (#506074)
+- fix update path for the doc subpackage (#512498)
+- preserve directories when installing headers (#511800)
+
 * Thu Jun  4 2009 Dan Horák <dan[AT]danny.cz> - 1.3.5-0.14.rc2
-- update to 1.3.5.beta
+- update to 1.3.5-rc2
 
 * Mon May 18 2009 Dan Horák <dan[AT]danny.cz> - 1.3.5-0.13.beta
 - rebuilt with podofo enabled
