@@ -1,6 +1,6 @@
 Name:           scribus
 Version:        1.3.5
-Release:        0.15.rc3%{?dist}
+Release:        0.16.rc3%{?dist}
 
 Summary:        DeskTop Publishing application written in Qt
 
@@ -171,6 +171,9 @@ update-mime-database %{_datadir}/mime > /dev/null 2>&1 || :
 
 
 %changelog
+* Sun Jul 26 2009 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.3.5-0.16.rc3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_12_Mass_Rebuild
+
 * Tue Jul 21 2009 Dan Horák <dan[AT]danny.cz> - 1.3.5-0.15.rc3
 - update to 1.3.5-rc3
 - use system hyphen library (#506074)
