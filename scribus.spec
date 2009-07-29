@@ -1,6 +1,6 @@
 Name:           scribus
 Version:        1.3.5
-Release:        0.16.rc3%{?dist}
+Release:        0.17.rc3%{?dist}
 
 Summary:        DeskTop Publishing application written in Qt
 
@@ -94,7 +94,13 @@ mkdir build
 pushd build
 %cmake -DOPENSYNC_LIBEXEC_DIR=%{_libexecdir} ..
 
+%ifnarch s390x
 make VERBOSE=1 %{?_smp_mflags}
+%else
+# we can't use parallel build on s390x, because g++ eats almost all memory
+# in the builder (2+0.5 GB) when compiling scribus134format.cpp
+make VERBOSE=1
+%endif
 popd
 
 
@@ -171,6 +177,9 @@ update-mime-database %{_datadir}/mime > /dev/null 2>&1 || :
 
 
 %changelog
+* Wed Jul 29 2009 Dan Horák <dan[AT]danny.cz> - 1.3.5-0.17.rc3
+- don't use parallel build on s390x
+
 * Sun Jul 26 2009 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.3.5-0.16.rc3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_12_Mass_Rebuild
 
