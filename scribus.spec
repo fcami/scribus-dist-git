@@ -1,15 +1,14 @@
 Name:           scribus
-Version:        1.3.5
-Release:        0.17.rc3%{?dist}
+Version:        1.3.5.1
+Release:        1%{?dist}
 
 Summary:        DeskTop Publishing application written in Qt
 
 Group:          Applications/Productivity
 License:        GPLv2+
 URL:            http://www.scribus.net/
-Source0:        http://downloads.sourceforge.net/%{name}/%{name}-%{version}.rc3.tar.bz2
+Source0:        http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.bz2
 Patch0:         %{name}-1.3.5-system-hyphen.patch
-Patch1:         %{name}-1.3.5-install-headers.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires:  cmake
@@ -23,7 +22,7 @@ BuildRequires:  libpng-devel
 BuildRequires:  libtiff-devel
 BuildRequires:  libxml2-devel
 BuildRequires:  openssl-devel
-BuildRequires:  python-devel >= 2.3
+BuildRequires:  python-devel
 BuildRequires:  python-imaging-devel
 BuildRequires:  qt-devel
 BuildRequires:  zlib-devel
@@ -34,11 +33,12 @@ BuildRequires:  aspell-devel
 BuildRequires:  boost-devel
 BuildRequires:  podofo-devel
 BuildRequires:  hyphen-devel
-Requires:       ghostscript >= 7.07
-Requires:       python >= 2.3
+Requires:       ghostscript
+Requires:       python
 Requires:       python-imaging
 Requires:       tkinter
 Requires:       shared-mime-info
+Requires:       %{name}-doc = %{version}-%{release}
 
 
 %description
@@ -74,9 +74,8 @@ Obsoletes:      %{name}-doc < 1.3.5-0.12.beta
 %{summary}
 
 %prep
-%setup -q -n %{name}-%{version}.rc3
+%setup -q -n %{name}-%{version}
 %patch0 -p1 -b .system-hyphen
-%patch1 -p1 -b .install-headers
 
 # recode man page to UTF-8
 pushd scribus/manpages
@@ -92,7 +91,7 @@ chmod a-x scribus/pageitem_latexframe.h
 %build
 mkdir build
 pushd build
-%cmake -DOPENSYNC_LIBEXEC_DIR=%{_libexecdir} ..
+%cmake ..
 
 %ifnarch s390x
 make VERBOSE=1 %{?_smp_mflags}
@@ -115,9 +114,6 @@ install -p -D -m0644 ${RPM_BUILD_ROOT}%{_datadir}/scribus/icons/scribusdoc.png $
 
 find ${RPM_BUILD_ROOT} -type f -name "*.la" -exec rm -f {} ';'
 
-# remove empty dirs in %{_includedir}
-rm -rf ${RPM_BUILD_ROOT}%{_includedir}/%{name}/{dicts,doc,dtd,editorconfig,icons,keysets,loremipsum,manpages,profiles,swatches,templates,unicodemap}
-
 # install the global desktop file
 rm -f ${RPM_BUILD_ROOT}%{_datadir}/mimelnk/application/*scribus.desktop
 desktop-file-install --vendor="fedora"                      \
@@ -139,7 +135,12 @@ update-mime-database %{_datadir}/mime > /dev/null 2>&1 || :
 
 %files
 %defattr(-,root,root,-)
-%doc AUTHORS ChangeLog ChangeLogSVN COPYING README TODO
+%doc %{_datadir}/doc/%{name}-%{version}/AUTHORS
+%doc %{_datadir}/doc/%{name}-%{version}/ChangeLog
+%doc %{_datadir}/doc/%{name}-%{version}/ChangeLogSVN
+%doc %{_datadir}/doc/%{name}-%{version}/COPYING
+%doc %{_datadir}/doc/%{name}-%{version}/README
+%doc %{_datadir}/doc/%{name}-%{version}/TODO
 %{_bindir}/%{name}
 %{_datadir}/applications/fedora-scribus.desktop
 %{_datadir}/mime/packages/scribus.xml
@@ -157,26 +158,27 @@ update-mime-database %{_datadir}/mime > /dev/null 2>&1 || :
 
 %files doc
 %defattr(-,root,root,-)
-%dir %{_datadir}/doc/%{name}-1.3.5.rc3
-%lang(cd) %{_datadir}/doc/%{name}-1.3.5.rc3/cs
-%lang(de) %{_datadir}/doc/%{name}-1.3.5.rc3/de
-%lang(en) %{_datadir}/doc/%{name}-1.3.5.rc3/en
-%lang(fr) %{_datadir}/doc/%{name}-1.3.5.rc3/fr
-%lang(pl) %{_datadir}/doc/%{name}-1.3.5.rc3/pl
-%{_datadir}/doc/%{name}-1.3.5.rc3/AUTHORS
-%{_datadir}/doc/%{name}-1.3.5.rc3/BUILDING
-%{_datadir}/doc/%{name}-1.3.5.rc3/ChangeLog
-%{_datadir}/doc/%{name}-1.3.5.rc3/ChangeLogSVN
-%{_datadir}/doc/%{name}-1.3.5.rc3/COPYING
-%{_datadir}/doc/%{name}-1.3.5.rc3/NEWS
-%{_datadir}/doc/%{name}-1.3.5.rc3/README*
-%{_datadir}/doc/%{name}-1.3.5.rc3/TODO
-%{_datadir}/doc/%{name}-1.3.5.rc3/PACKAGING
-%{_datadir}/doc/%{name}-1.3.5.rc3/LINKS
-%{_datadir}/doc/%{name}-1.3.5.rc3/TRANSLATION
+%dir %{_datadir}/doc/%{name}-%{version}
+%lang(cs) %{_datadir}/doc/%{name}-%{version}/cs
+%lang(de) %{_datadir}/doc/%{name}-%{version}/de
+%lang(en) %{_datadir}/doc/%{name}-%{version}/en
+%lang(fr) %{_datadir}/doc/%{name}-%{version}/fr
+%lang(pl) %{_datadir}/doc/%{name}-%{version}/pl
+%{_datadir}/doc/%{name}-%{version}/BUILDING
+%{_datadir}/doc/%{name}-%{version}/NEWS
+%{_datadir}/doc/%{name}-%{version}/README*
+%{_datadir}/doc/%{name}-%{version}/PACKAGING
+%{_datadir}/doc/%{name}-%{version}/LINKS
+%{_datadir}/doc/%{name}-%{version}/TRANSLATION
 
 
 %changelog
+* Thu Aug 20 2009 Dan Horák <dan[AT]danny.cz> - 1.3.5.1-1
+- update to final 1.3.5.1
+- drop the upstreamed "install-headers" patch
+- always install doc subpackage (#464148)
+- full changelog: http://www.scribus.net/?q=node/193
+
 * Wed Jul 29 2009 Dan Horák <dan[AT]danny.cz> - 1.3.5-0.17.rc3
 - don't use parallel build on s390x
 
