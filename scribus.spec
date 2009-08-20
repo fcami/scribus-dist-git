@@ -176,7 +176,7 @@ update-mime-database %{_datadir}/mime > /dev/null 2>&1 || :
 * Thu Aug 20 2009 Dan Horák <dan[AT]danny.cz> - 1.3.5.1-1
 - update to final 1.3.5.1
 - drop the upstreamed "install-headers" patch
-- always install doc subpackage (#464148)
+- always install doc subpackage (#446148)
 - full changelog: http://www.scribus.net/?q=node/193
 
 * Wed Jul 29 2009 Dan Horák <dan[AT]danny.cz> - 1.3.5-0.17.rc3
