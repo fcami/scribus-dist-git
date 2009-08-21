@@ -1,6 +1,6 @@
 Name:           scribus
 Version:        1.3.5.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 
 Summary:        DeskTop Publishing application written in Qt
 
@@ -173,6 +173,9 @@ update-mime-database %{_datadir}/mime > /dev/null 2>&1 || :
 
 
 %changelog
+* Fri Aug 21 2009 Tomas Mraz <tmraz@redhat.com> - 1.3.5.1-2
+- rebuilt with new openssl
+
 * Thu Aug 20 2009 Dan Horák <dan[AT]danny.cz> - 1.3.5.1-1
 - update to final 1.3.5.1
 - drop the upstreamed "install-headers" patch
