@@ -1,6 +1,6 @@
 Name:           scribus
 Version:        1.3.5.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 
 Summary:        DeskTop Publishing application written in Qt
 
@@ -87,6 +87,14 @@ popd
 # fix permissions
 chmod a-x scribus/pageitem_latexframe.h
 
+# drop shebang lines from python scripts
+for f in scribus/plugins/scriptplugin/{samples,scripts}/*.py
+do
+    sed '1{/#!\/usr\/bin\/env\|#!\/usr\/bin\/python/d}' $f > $f.new
+    touch -r $f $f.new
+    mv $f.new $f
+done
+
 
 %build
 mkdir build
@@ -142,11 +150,13 @@ update-mime-database %{_datadir}/mime > /dev/null 2>&1 || :
 %doc %{_datadir}/doc/%{name}-%{version}/README
 %doc %{_datadir}/doc/%{name}-%{version}/TODO
 %{_bindir}/%{name}
-%{_datadir}/applications/fedora-scribus.desktop
-%{_datadir}/mime/packages/scribus.xml
+%{_libdir}/%{name}
+%{_datadir}/applications/fedora-%{name}.desktop
+%{_datadir}/mime/packages/%{name}.xml
 %{_datadir}/pixmaps/*
 %{_datadir}/%{name}
-%{_libdir}/%{name}
+%exclude %{_datadir}/%{name}/samples/*.py[co]
+%exclude %{_datadir}/%{name}/scripts/*.py[co]
 %{_mandir}/man1/*
 %{_mandir}/pl/man1/*
 %{_mandir}/de/man1/*
@@ -173,6 +183,10 @@ update-mime-database %{_datadir}/mime > /dev/null 2>&1 || :
 
 
 %changelog
+* Tue Aug 25 2009 Dan Horák <dan[AT]danny.cz> - 1.3.5.1-3
+- drop shebang line from python scripts
+- don't package precompiled python scripts
+
 * Fri Aug 21 2009 Tomas Mraz <tmraz@redhat.com> - 1.3.5.1-2
 - rebuilt with new openssl
 
