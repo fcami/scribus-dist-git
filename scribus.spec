@@ -1,6 +1,6 @@
 Name:           scribus
-Version:        1.3.5.1
-Release:        5%{?dist}
+Version:        1.3.6
+Release:        1%{?dist}
 
 Summary:        DeskTop Publishing application written in Qt
 
@@ -11,9 +11,8 @@ Source0:        http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.
 # https://bugzilla.redhat.com/show_bug.cgi?id=506074
 # http://bugs.scribus.net/view.php?id=8232
 Patch0:         %{name}-1.3.5-system-hyphen.patch
-# https://bugzilla.redhat.com/show_bug.cgi?id=537677
-# http://bugs.scribus.net/view.php?id=8595
-Patch1:         %{name}-1.3.5-check-hdict.patch
+# fix version variable for buildsystem
+Patch1:         %{name}-1.3.6-version.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires:  cmake
@@ -81,7 +80,7 @@ Obsoletes:      %{name}-doc < 1.3.5-0.12.beta
 %prep
 %setup -q -n %{name}-%{version}
 %patch0 -p1 -b .system-hyphen
-%patch1 -p2 -b .check-hdict
+%patch1 -p1 -b .version
 
 # recode man page to UTF-8
 pushd scribus/manpages
@@ -189,6 +188,9 @@ update-mime-database %{_datadir}/mime > /dev/null 2>&1 || :
 
 
 %changelog
+* Mon Mar 29 2010 Dan Horák <dan[AT]danny.cz> - 1.3.6-1
+- update to final 1.3.6
+
 * Wed Nov 25 2009 Dan Horák <dan[AT]danny.cz> - 1.3.5.1-5
 - fixed a crash when closing a hyphenator object (#537677)
 
