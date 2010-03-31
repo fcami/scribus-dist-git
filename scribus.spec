@@ -1,6 +1,6 @@
 Name:           scribus
 Version:        1.3.6
-Release:        1%{?dist}
+Release:        2%{?dist}
 
 Summary:        DeskTop Publishing application written in Qt
 
@@ -13,6 +13,10 @@ Source0:        http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.
 Patch0:         %{name}-1.3.5-system-hyphen.patch
 # fix version variable for buildsystem
 Patch1:         %{name}-1.3.6-version.patch
+# fix QString initialization in Qt 4.7
+Patch2:         %{name}-1.3.6-qstring.patch
+# fix linking with --no-add-needed
+Patch3:         %{name}-1.3.6-linker.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires:  cmake
@@ -81,6 +85,8 @@ Obsoletes:      %{name}-doc < 1.3.5-0.12.beta
 %setup -q -n %{name}-%{version}
 %patch0 -p1 -b .system-hyphen
 %patch1 -p1 -b .version
+%patch2 -p1 -b .qstring
+%patch3 -p1 -b .linker
 
 # recode man page to UTF-8
 pushd scribus/manpages
@@ -188,6 +194,9 @@ update-mime-database %{_datadir}/mime > /dev/null 2>&1 || :
 
 
 %changelog
+* Wed Mar 31 2010 Dan Horák <dan[AT]danny.cz> - 1.3.6-2
+- added 2 patches for rawhide
+
 * Mon Mar 29 2010 Dan Horák <dan[AT]danny.cz> - 1.3.6-1
 - update to final 1.3.6
 
