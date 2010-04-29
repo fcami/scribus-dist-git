@@ -1,6 +1,6 @@
 Name:           scribus
 Version:        1.3.6
-Release:        3%{?dist}
+Release:        4%{?dist}
 
 Summary:        DeskTop Publishing application written in Qt
 
@@ -17,6 +17,8 @@ Patch1:         %{name}-1.3.6-version.patch
 Patch2:         %{name}-1.3.6-qstring.patch
 # fix linking with --no-add-needed
 Patch3:         %{name}-1.3.6-linker.patch
+# fix build with podofo 0.8.0
+Patch4:         %{name}-1.3.6-podofo-0.8.0.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires:  cmake
@@ -87,6 +89,7 @@ Obsoletes:      %{name}-doc < 1.3.5-0.12.beta
 %patch1 -p1 -b .version
 %patch2 -p1 -b .qstring
 %patch3 -p1 -b .linker
+%patch4 -p2 -b .podofo
 
 # recode man page to UTF-8
 pushd scribus/manpages
@@ -194,6 +197,9 @@ update-mime-database %{_datadir}/mime > /dev/null 2>&1 || :
 
 
 %changelog
+* Thu Apr 29 2010 Dan Horák <dan[AT]danny.cz> - 1.3.6-4
+- fix build with podofo 0.8.0
+
 * Thu Apr 29 2010 Dan Horák <dan[AT]danny.cz> - 1.3.6-3
 - rebuilt for podofo 0.8.0
 
