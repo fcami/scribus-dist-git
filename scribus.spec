@@ -1,6 +1,6 @@
 Name:           scribus
 Version:        1.3.6
-Release:        2%{?dist}
+Release:        3%{?dist}
 
 Summary:        DeskTop Publishing application written in Qt
 
@@ -194,6 +194,9 @@ update-mime-database %{_datadir}/mime > /dev/null 2>&1 || :
 
 
 %changelog
+* Thu Apr 29 2010 Dan Horák <dan[AT]danny.cz> - 1.3.6-3
+- rebuilt for podofo 0.8.0
+
 * Wed Mar 31 2010 Dan Horák <dan[AT]danny.cz> - 1.3.6-2
 - added 2 patches for rawhide
 
