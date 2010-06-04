@@ -1,6 +1,6 @@
 Name:           scribus
-Version:        1.3.6
-Release:        4%{?dist}
+Version:        1.3.7
+Release:        1%{?dist}
 
 Summary:        DeskTop Publishing application written in Qt
 
@@ -10,15 +10,7 @@ URL:            http://www.scribus.net/
 Source0:        http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.bz2
 # https://bugzilla.redhat.com/show_bug.cgi?id=506074
 # http://bugs.scribus.net/view.php?id=8232
-Patch0:         %{name}-1.3.5-system-hyphen.patch
-# fix version variable for buildsystem
-Patch1:         %{name}-1.3.6-version.patch
-# fix QString initialization in Qt 4.7
-Patch2:         %{name}-1.3.6-qstring.patch
-# fix linking with --no-add-needed
-Patch3:         %{name}-1.3.6-linker.patch
-# fix build with podofo 0.8.0
-Patch4:         %{name}-1.3.6-podofo-0.8.0.patch
+Patch0:         %{name}-1.3.7-system-hyphen.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires:  cmake
@@ -85,11 +77,7 @@ Obsoletes:      %{name}-doc < 1.3.5-0.12.beta
 
 %prep
 %setup -q -n %{name}-%{version}
-%patch0 -p1 -b .system-hyphen
-%patch1 -p1 -b .version
-%patch2 -p1 -b .qstring
-%patch3 -p1 -b .linker
-%patch4 -p2 -b .podofo
+%patch0 -p2 -b .system-hyphen
 
 # recode man page to UTF-8
 pushd scribus/manpages
@@ -197,6 +185,9 @@ update-mime-database %{_datadir}/mime > /dev/null 2>&1 || :
 
 
 %changelog
+* Tue Jun  1 2010 Dan Horák <dan[AT]danny.cz> - 1.3.7-1
+- update to final 1.3.7
+
 * Thu Apr 29 2010 Dan Horák <dan[AT]danny.cz> - 1.3.6-4
 - fix build with podofo 0.8.0
 
