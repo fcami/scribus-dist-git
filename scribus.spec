@@ -1,6 +1,6 @@
 Name:           scribus
 Version:        1.3.7
-Release:        1%{?dist}
+Release:        2%{?dist}
 
 Summary:        DeskTop Publishing application written in Qt
 
@@ -185,6 +185,9 @@ update-mime-database %{_datadir}/mime > /dev/null 2>&1 || :
 
 
 %changelog
+* Tue Jun 08 2010 Dan Horák <dan@danny.cz> - 1.3.7-2
+- rebuilt with podofo 0.8.1
+
 * Tue Jun  1 2010 Dan Horák <dan[AT]danny.cz> - 1.3.7-1
 - update to final 1.3.7
 
