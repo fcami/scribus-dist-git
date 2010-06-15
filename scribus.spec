@@ -1,6 +1,6 @@
 Name:           scribus
 Version:        1.3.7
-Release:        2%{?dist}
+Release:        3%{?dist}
 
 Summary:        DeskTop Publishing application written in Qt
 
@@ -11,6 +11,9 @@ Source0:        http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.
 # https://bugzilla.redhat.com/show_bug.cgi?id=506074
 # http://bugs.scribus.net/view.php?id=8232
 Patch0:         %{name}-1.3.7-system-hyphen.patch
+# https://bugzilla.redhat.com/show_bug.cgi?id=603921
+# http://bugs.scribus.net/view.php?id=8917
+Patch1:         %{name}-1.3.7-menuicons.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires:  cmake
@@ -78,6 +81,7 @@ Obsoletes:      %{name}-doc < 1.3.5-0.12.beta
 %prep
 %setup -q -n %{name}-%{version}
 %patch0 -p2 -b .system-hyphen
+%patch1 -p2 -b .menuicons
 
 # recode man page to UTF-8
 pushd scribus/manpages
@@ -185,6 +189,9 @@ update-mime-database %{_datadir}/mime > /dev/null 2>&1 || :
 
 
 %changelog
+* Tue Jun 15 2010 Dan Horák <dan@danny.cz> - 1.3.7-3
+- show icons in shapes menu (#603921)
+
 * Tue Jun 08 2010 Dan Horák <dan@danny.cz> - 1.3.7-2
 - rebuilt with podofo 0.8.1
 

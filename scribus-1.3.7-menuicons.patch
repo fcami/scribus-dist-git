@@ -1,0 +1,20 @@
+commit 169287c87dbf6beb6b1601eee377ca0465880120
+Author: cbradney <cbradney@11d20701-8431-0410-a711-e3c959e3b870>
+Date:   Sun Jun 13 21:15:23 2010 +0000
+
+    #8917: Force shapes icons in menus to have an icon so they show up on DE that turn off icons by default
+    
+    git-svn-id: svn://scribus.info/Scribus/trunk@15184 11d20701-8431-0410-a711-e3c959e3b870
+
+diff --git a/Scribus/scribus/ui/autoformbuttongroup.cpp b/Scribus/scribus/ui/autoformbuttongroup.cpp
+index d68ddaf..e91389f 100644
+--- a/Scribus/scribus/autoformbuttongroup.cpp
++++ b/Scribus/scribus/autoformbuttongroup.cpp
+@@ -79,6 +79,7 @@ AutoformButtonGroup::AutoformButtonGroup( QWidget* parent ) : QMenu( parent )
+ void AutoformButtonGroup::addShape(QMenu* menu, int shapenum)
+ {
+ 	QAction *action = menu->addAction(QIcon(getIconPixmap(shapenum, 16)), "");
++	action->setIconVisibleInMenu(true);
+ 	connect(action, SIGNAL(triggered()), signalMapper, SLOT(map()));
+ 	signalMapper->setMapping(action, shapenum);
+ }
