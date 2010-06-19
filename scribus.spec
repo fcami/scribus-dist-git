@@ -1,6 +1,6 @@
 Name:           scribus
 Version:        1.3.7
-Release:        3%{?dist}
+Release:        4%{?dist}
 
 Summary:        DeskTop Publishing application written in Qt
 
@@ -14,6 +14,9 @@ Patch0:         %{name}-1.3.7-system-hyphen.patch
 # https://bugzilla.redhat.com/show_bug.cgi?id=603921
 # http://bugs.scribus.net/view.php?id=8917
 Patch1:         %{name}-1.3.7-menuicons.patch
+# https://bugzilla.redhat.com/show_bug.cgi?id=604124
+# http://bugs.scribus.net/view.php?id=9180
+Patch2:         %{name}-1.3.7-selecting-frame-crash.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires:  cmake
@@ -82,6 +85,7 @@ Obsoletes:      %{name}-doc < 1.3.5-0.12.beta
 %setup -q -n %{name}-%{version}
 %patch0 -p2 -b .system-hyphen
 %patch1 -p2 -b .menuicons
+%patch2 -p2 -b .selecting-frame-crash
 
 # recode man page to UTF-8
 pushd scribus/manpages
@@ -189,10 +193,13 @@ update-mime-database %{_datadir}/mime > /dev/null 2>&1 || :
 
 
 %changelog
-* Tue Jun 15 2010 Dan Horák <dan@danny.cz> - 1.3.7-3
+* Tue Jun 15 2010 Dan Horák <dan[AT]danny.cz> - 1.3.7-4
+- fix crash when selecting frame (#604124)
+
+* Tue Jun 15 2010 Dan Horák <dan[AT]danny.cz> - 1.3.7-3
 - show icons in shapes menu (#603921)
 
-* Tue Jun 08 2010 Dan Horák <dan@danny.cz> - 1.3.7-2
+* Tue Jun 08 2010 Dan Horák <dan[AT]danny.cz> - 1.3.7-2
 - rebuilt with podofo 0.8.1
 
 * Tue Jun  1 2010 Dan Horák <dan[AT]danny.cz> - 1.3.7-1
