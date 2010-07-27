@@ -1,6 +1,6 @@
 Name:           scribus
 Version:        1.3.7
-Release:        4%{?dist}
+Release:        5%{?dist}
 
 Summary:        DeskTop Publishing application written in Qt
 
@@ -193,6 +193,9 @@ update-mime-database %{_datadir}/mime > /dev/null 2>&1 || :
 
 
 %changelog
+* Tue Jul 27 2010 David Malcolm <dmalcolm@redhat.com> - 1.3.7-5
+- Rebuilt for https://fedoraproject.org/wiki/Features/Python_2.7/MassRebuild
+
 * Tue Jun 15 2010 Dan Horák <dan[AT]danny.cz> - 1.3.7-4
 - fix crash when selecting frame (#604124)
 
