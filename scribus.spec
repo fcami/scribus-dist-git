@@ -1,6 +1,6 @@
 Name:           scribus
-Version:        1.3.7
-Release:        5%{?dist}
+Version:        1.3.8
+Release:        1%{?dist}
 
 Summary:        DeskTop Publishing application written in Qt
 
@@ -11,12 +11,6 @@ Source0:        http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.
 # https://bugzilla.redhat.com/show_bug.cgi?id=506074
 # http://bugs.scribus.net/view.php?id=8232
 Patch0:         %{name}-1.3.7-system-hyphen.patch
-# https://bugzilla.redhat.com/show_bug.cgi?id=603921
-# http://bugs.scribus.net/view.php?id=8917
-Patch1:         %{name}-1.3.7-menuicons.patch
-# https://bugzilla.redhat.com/show_bug.cgi?id=604124
-# http://bugs.scribus.net/view.php?id=9180
-Patch2:         %{name}-1.3.7-selecting-frame-crash.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires:  cmake
@@ -68,6 +62,7 @@ Requires:       %{name} = %{version}-%{release}
 %description    devel
 Header files for Scribus.
 
+
 %package        doc
 Summary:        Documentation files for Scribus
 Group:          Development/Tools
@@ -84,8 +79,6 @@ Obsoletes:      %{name}-doc < 1.3.5-0.12.beta
 %prep
 %setup -q -n %{name}-%{version}
 %patch0 -p2 -b .system-hyphen
-%patch1 -p2 -b .menuicons
-%patch2 -p2 -b .selecting-frame-crash
 
 # recode man page to UTF-8
 pushd scribus/manpages
@@ -193,6 +186,9 @@ update-mime-database %{_datadir}/mime > /dev/null 2>&1 || :
 
 
 %changelog
+* Mon Aug 16 2010 Dan Horák <dan[AT]danny.cz> - 1.3.8-1
+- update to 1.3.8
+
 * Tue Jul 27 2010 David Malcolm <dmalcolm@redhat.com> - 1.3.7-5
 - Rebuilt for https://fedoraproject.org/wiki/Features/Python_2.7/MassRebuild
 
