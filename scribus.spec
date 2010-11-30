@@ -1,6 +1,6 @@
 Name:           scribus
-Version:        1.3.8
-Release:        3%{?dist}
+Version:        1.3.9
+Release:        1%{?dist}
 
 Summary:        DeskTop Publishing application written in Qt
 
@@ -10,7 +10,9 @@ URL:            http://www.scribus.net/
 Source0:        http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.bz2
 # https://bugzilla.redhat.com/show_bug.cgi?id=506074
 # http://bugs.scribus.net/view.php?id=8232
-Patch0:         %{name}-1.3.7-system-hyphen.patch
+Patch0:         %{name}-1.3.9-system-hyphen.patch
+# fix rpath injection
+Patch1:         %{name}-1.3.9-rpath.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires:  cmake
@@ -41,6 +43,9 @@ Requires:       python-imaging
 Requires:       tkinter
 Requires:       shared-mime-info
 Requires:       %{name}-doc = %{version}-%{release}
+
+%filter_provides_in %{_libdir}/%{name}/plugins
+%filter_setup
 
 
 %description
@@ -79,6 +84,7 @@ Obsoletes:      %{name}-doc < 1.3.5-0.12.beta
 %prep
 %setup -q -n %{name}-%{version}
 %patch0 -p2 -b .system-hyphen
+%patch1 -p2 -b .rpath
 
 # recode man page to UTF-8
 pushd scribus/manpages
@@ -102,15 +108,9 @@ done
 %build
 mkdir build
 pushd build
-%cmake ..
+%cmake -DWANT_DISTROBUILD=YES ..
 
-%ifnarch s390x
 make VERBOSE=1 %{?_smp_mflags}
-%else
-# we can't use parallel build on s390x, because g++ eats almost all memory
-# in the builder (2+0.5 GB) when compiling scribus134format.cpp
-make VERBOSE=1
-%endif
 popd
 
 
@@ -172,11 +172,7 @@ update-mime-database %{_datadir}/mime > /dev/null 2>&1 || :
 %files doc
 %defattr(-,root,root,-)
 %dir %{_datadir}/doc/%{name}-%{version}
-%lang(cs) %{_datadir}/doc/%{name}-%{version}/cs
-%lang(de) %{_datadir}/doc/%{name}-%{version}/de
 %lang(en) %{_datadir}/doc/%{name}-%{version}/en
-%lang(fr) %{_datadir}/doc/%{name}-%{version}/fr
-%lang(pl) %{_datadir}/doc/%{name}-%{version}/pl
 %{_datadir}/doc/%{name}-%{version}/BUILDING
 %{_datadir}/doc/%{name}-%{version}/NEWS
 %{_datadir}/doc/%{name}-%{version}/README*
@@ -186,6 +182,10 @@ update-mime-database %{_datadir}/mime > /dev/null 2>&1 || :
 
 
 %changelog
+* Tue Nov 30 2010 Dan Horák <dan[AT]danny.cz> - 1.3.9-1
+- update to 1.3.9
+- filter unwanted Provides
+
 * Wed Nov 03 2010 Dan Horák <dan@danny.cz> - 1.3.8-3
 - rebuilt against podofo 0.8.4
 

@@ -1,4 +1,4 @@
-From 714923566c62dbe89991ca8e100d9c47e9aa38fc Mon Sep 17 00:00:00 2001
+From d3dfe80d0a9892236cbbe14b68fe301b93e90a6f Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Dan=20Hor=C3=A1k?= <dan@danny.cz>
 Date: Tue, 1 Jun 2010 10:54:50 +0200
 Subject: [PATCH] use system hyphen library
@@ -12,10 +12,10 @@ Subject: [PATCH] use system hyphen library
  create mode 100644 Scribus/cmake/modules/FindHYPHEN.cmake
 
 diff --git a/Scribus/CMakeLists.txt b/Scribus/CMakeLists.txt
-index 482fb4c..2547d3b 100644
+index 6f37f5f..09396f3 100644
 --- a/Scribus/CMakeLists.txt
 +++ b/Scribus/CMakeLists.txt
-@@ -684,6 +684,16 @@ IF (WITH_PODOFO)
+@@ -678,6 +678,16 @@ IF (WITH_PODOFO)
  ENDIF (WITH_PODOFO)
  #>>PoDoFo for AI PDF import
  
@@ -67,10 +67,10 @@ index 0000000..d67bd59
 +  SET( HYPHEN_LIBRARIES ${HYPHEN_LIBRARY} )
 +ENDIF(HYPHEN_FOUND)
 diff --git a/Scribus/scribus/CMakeLists.txt b/Scribus/scribus/CMakeLists.txt
-index e856781..49da5f6 100644
+index 8663f39..5ab1762 100644
 --- a/Scribus/scribus/CMakeLists.txt
 +++ b/Scribus/scribus/CMakeLists.txt
-@@ -396,10 +396,8 @@ SET(SCRIBUS_SOURCES
+@@ -397,10 +397,8 @@ SET(SCRIBUS_SOURCES
    guidesdelegate.cpp
    guidesmodel.cpp
    helpbrowser.cpp
@@ -81,7 +81,7 @@ index e856781..49da5f6 100644
    hyphenator.cpp
    hysettings.cpp
    imageinfodialog.cpp
-@@ -634,6 +632,14 @@ SET(SCRIBUS_SOURCES
+@@ -635,6 +633,14 @@ SET(SCRIBUS_SOURCES
    vruler.cpp
  )
  
@@ -96,7 +96,7 @@ index e856781..49da5f6 100644
  IF(WIN32)
    SET(SCRIBUS_MOC_WIN32_ONLY_CLASSES scprintengine_gdi.h)
    SET(SCRIBUS_WIN32_ONLY_SOURCES
-@@ -783,6 +789,12 @@ IF(HAVE_PODOFO)
+@@ -800,6 +806,12 @@ IF(HAVE_PODOFO)
    )
  ENDIF(HAVE_PODOFO)
  
@@ -107,8 +107,8 @@ index e856781..49da5f6 100644
 +ENDIF(HAVE_HYPHEN)
 +
  # Now build plugins
- SET(PLUGIN_LIBRARIES)
- IF(WIN32)
+ SET(PLUGIN_LIBRARIES
+   ${QT_QTCORE_LIBRARY} ${QT_QTGUI_LIBRARY} ${QT_QTXML_LIBRARY}
 diff --git a/Scribus/scribus/hyphenator.h b/Scribus/scribus/hyphenator.h
 index 7712c37..1312950 100644
 --- a/Scribus/scribus/hyphenator.h
@@ -123,5 +123,5 @@ index 7712c37..1312950 100644
  class ScribusMainWindow;
  class PageItem;
 -- 
-1.6.6.1
+1.7.3.2
 
