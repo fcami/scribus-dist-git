@@ -1,6 +1,6 @@
 Name:           scribus
 Version:        1.3.9
-Release:        1%{?dist}
+Release:        2%{?dist}
 
 Summary:        DeskTop Publishing application written in Qt
 
@@ -138,10 +138,12 @@ rm -rf ${RPM_BUILD_ROOT}
 
 %post
 update-mime-database %{_datadir}/mime > /dev/null 2>&1 || :
+update-desktop-database &> /dev/null || :
 
 
 %postun
 update-mime-database %{_datadir}/mime > /dev/null 2>&1 || :
+update-desktop-database &> /dev/null || :
 
 
 %files
@@ -182,6 +184,9 @@ update-mime-database %{_datadir}/mime > /dev/null 2>&1 || :
 
 
 %changelog
+* Mon Dec 20 2010 Dan Horák <dan[AT]danny.cz> - 1.3.9-2
+- run update-desktop-database in scriptlets too (#664318)
+
 * Tue Nov 30 2010 Dan Horák <dan[AT]danny.cz> - 1.3.9-1
 - update to 1.3.9
 - filter unwanted Provides
