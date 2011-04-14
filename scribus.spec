@@ -1,6 +1,6 @@
 Name:           scribus
 Version:        1.3.9
-Release:        3%{?dist}
+Release:        4%{?dist}
 
 Summary:        DeskTop Publishing application written in Qt
 
@@ -184,6 +184,9 @@ update-desktop-database &> /dev/null || :
 
 
 %changelog
+* Thu Apr 14 2011 Dan Horák <dan@danny.cz> - 1.3.9-4
+- rebuilt against podofo 0.9.0
+
 * Wed Feb 09 2011 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.3.9-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_15_Mass_Rebuild
 
