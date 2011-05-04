@@ -1,6 +1,6 @@
 Name:           scribus
 Version:        1.3.9
-Release:        4%{?dist}
+Release:        5%{?dist}
 
 Summary:        DeskTop Publishing application written in Qt
 
@@ -184,6 +184,9 @@ update-desktop-database &> /dev/null || :
 
 
 %changelog
+* Wed May 04 2011 Dan Horák <dan@danny.cz> - 1.3.9-5
+- rebuilt against podofo 0.9.1
+
 * Thu Apr 14 2011 Dan Horák <dan@danny.cz> - 1.3.9-4
 - rebuilt against podofo 0.9.0
 
