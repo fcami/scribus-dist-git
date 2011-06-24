@@ -1,6 +1,6 @@
 Name:           scribus
 Version:        1.3.9
-Release:        5%{?dist}
+Release:        6%{?dist}
 
 Summary:        DeskTop Publishing application written in Qt
 
@@ -13,6 +13,9 @@ Source0:        http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.
 Patch0:         %{name}-1.3.9-system-hyphen.patch
 # fix rpath injection
 Patch1:         %{name}-1.3.9-rpath.patch
+# https://bugzilla.redhat.com/show_bug.cgi?id=716107 (FTBFS)
+# update for cups 1.5
+Patch2:         %{name}-1.3.9-cups.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires:  cmake
@@ -85,6 +88,7 @@ Obsoletes:      %{name}-doc < 1.3.5-0.12.beta
 %setup -q -n %{name}-%{version}
 %patch0 -p2 -b .system-hyphen
 %patch1 -p2 -b .rpath
+%patch2 -p2 -b .cups
 
 # recode man page to UTF-8
 pushd scribus/manpages
@@ -184,6 +188,9 @@ update-desktop-database &> /dev/null || :
 
 
 %changelog
+* Fri Jun 24 2011 Dan Horák <dan@danny.cz> - 1.3.9-6
+- fix build with cups 1.5 (#716107)
+
 * Wed May 04 2011 Dan Horák <dan@danny.cz> - 1.3.9-5
 - rebuilt against podofo 0.9.1
 
