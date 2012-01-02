@@ -1,6 +1,6 @@
 Name:           scribus
 Version:        1.4.0
-Release:        1%{?dist}
+Release:        1%{?dist}.1
 
 Summary:        DeskTop Publishing application written in Qt
 
@@ -8,6 +8,9 @@ Group:          Applications/Productivity
 License:        GPLv2+
 URL:            http://www.scribus.net/
 Source0:        http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.bz2
+Patch0:         %{name}-1.4.0-swatches.patch
+Patch1:         %{name}-1.4.0-profiles.patch
+Patch2:         %{name}-1.4.0-docdir.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires:  cmake
@@ -78,6 +81,9 @@ Obsoletes:      %{name}-doc < 1.3.5-0.12.beta
 
 %prep
 %setup -q
+%patch0 -p2 -b .swatches
+%patch1 -p2 -b .profiles
+%patch2 -p1 -b .docdir
 
 # recode man page to UTF-8
 pushd scribus/manpages
@@ -124,9 +130,6 @@ desktop-file-install --vendor="fedora"                      \
     --dir=${RPM_BUILD_ROOT}%{_datadir}/applications         \
     scribus.desktop
 
-# rename the docs dir
-mv ${RPM_BUILD_ROOT}%{_defaultdocdir}/%{name} ${RPM_BUILD_ROOT}%{_defaultdocdir}/%{name}-%{version}
-
 
 %clean
 rm -rf ${RPM_BUILD_ROOT}
@@ -151,11 +154,11 @@ update-desktop-database &> /dev/null || :
 %doc %{_defaultdocdir}/%{name}-%{version}/README
 %doc %{_defaultdocdir}/%{name}-%{version}/TODO
 %{_bindir}/%{name}
-%{_libdir}/%{name}
+%{_libdir}/%{name}/
 %{_datadir}/applications/fedora-%{name}.desktop
 %{_datadir}/mime/packages/%{name}.xml
 %{_datadir}/pixmaps/*
-%{_datadir}/%{name}
+%{_datadir}/%{name}/
 %exclude %{_datadir}/%{name}/samples/*.py[co]
 %exclude %{_datadir}/%{name}/scripts/*.py[co]
 %{_mandir}/man1/*
@@ -165,7 +168,7 @@ update-desktop-database &> /dev/null || :
 %files devel
 %defattr(-,root,root,-)
 %doc AUTHORS COPYING
-%{_includedir}/%{name}
+%{_includedir}/%{name}/
 
 %files doc
 %defattr(-,root,root,-)
@@ -181,6 +184,10 @@ update-desktop-database &> /dev/null || :
 
 
 %changelog
+* Mon Jan 02 2012 Dan Horák <dan[at]danny.cz> - 1.4.0-1.1
+- install profiles and swatches to datadir
+- use versioned docdir
+
 * Mon Jan 02 2012 Dan Horák <dan[at]danny.cz> - 1.4.0-1
 - update to 1.4.0
 
