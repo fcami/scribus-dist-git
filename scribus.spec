@@ -1,6 +1,6 @@
 Name:           scribus
-Version:        1.3.9
-Release:        6%{?dist}
+Version:        1.4.0
+Release:        1%{?dist}
 
 Summary:        DeskTop Publishing application written in Qt
 
@@ -8,14 +8,6 @@ Group:          Applications/Productivity
 License:        GPLv2+
 URL:            http://www.scribus.net/
 Source0:        http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.bz2
-# https://bugzilla.redhat.com/show_bug.cgi?id=506074
-# http://bugs.scribus.net/view.php?id=8232
-Patch0:         %{name}-1.3.9-system-hyphen.patch
-# fix rpath injection
-Patch1:         %{name}-1.3.9-rpath.patch
-# https://bugzilla.redhat.com/show_bug.cgi?id=716107 (FTBFS)
-# update for cups 1.5
-Patch2:         %{name}-1.3.9-cups.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires:  cmake
@@ -31,7 +23,7 @@ BuildRequires:  libxml2-devel
 BuildRequires:  openssl-devel
 BuildRequires:  python-devel
 BuildRequires:  python-imaging-devel
-BuildRequires:  qt-devel
+BuildRequires:  qt4-devel
 BuildRequires:  zlib-devel
 BuildRequires:  freetype-devel
 BuildRequires:  gnutls-devel
@@ -85,10 +77,7 @@ Obsoletes:      %{name}-doc < 1.3.5-0.12.beta
 %{summary}
 
 %prep
-%setup -q -n %{name}-%{version}
-%patch0 -p2 -b .system-hyphen
-%patch1 -p2 -b .rpath
-%patch2 -p2 -b .cups
+%setup -q
 
 # recode man page to UTF-8
 pushd scribus/manpages
@@ -135,6 +124,9 @@ desktop-file-install --vendor="fedora"                      \
     --dir=${RPM_BUILD_ROOT}%{_datadir}/applications         \
     scribus.desktop
 
+# rename the docs dir
+mv ${RPM_BUILD_ROOT}%{_defaultdocdir}/%{name} ${RPM_BUILD_ROOT}%{_defaultdocdir}/%{name}-%{version}
+
 
 %clean
 rm -rf ${RPM_BUILD_ROOT}
@@ -152,12 +144,12 @@ update-desktop-database &> /dev/null || :
 
 %files
 %defattr(-,root,root,-)
-%doc %{_datadir}/doc/%{name}-%{version}/AUTHORS
-%doc %{_datadir}/doc/%{name}-%{version}/ChangeLog
-%doc %{_datadir}/doc/%{name}-%{version}/ChangeLogSVN
-%doc %{_datadir}/doc/%{name}-%{version}/COPYING
-%doc %{_datadir}/doc/%{name}-%{version}/README
-%doc %{_datadir}/doc/%{name}-%{version}/TODO
+%doc %{_defaultdocdir}/%{name}-%{version}/AUTHORS
+%doc %{_defaultdocdir}/%{name}-%{version}/ChangeLog
+%doc %{_defaultdocdir}/%{name}-%{version}/ChangeLogSVN
+%doc %{_defaultdocdir}/%{name}-%{version}/COPYING
+%doc %{_defaultdocdir}/%{name}-%{version}/README
+%doc %{_defaultdocdir}/%{name}-%{version}/TODO
 %{_bindir}/%{name}
 %{_libdir}/%{name}
 %{_datadir}/applications/fedora-%{name}.desktop
@@ -177,17 +169,21 @@ update-desktop-database &> /dev/null || :
 
 %files doc
 %defattr(-,root,root,-)
-%dir %{_datadir}/doc/%{name}-%{version}
-%lang(en) %{_datadir}/doc/%{name}-%{version}/en
-%{_datadir}/doc/%{name}-%{version}/BUILDING
-%{_datadir}/doc/%{name}-%{version}/NEWS
-%{_datadir}/doc/%{name}-%{version}/README*
-%{_datadir}/doc/%{name}-%{version}/PACKAGING
-%{_datadir}/doc/%{name}-%{version}/LINKS
-%{_datadir}/doc/%{name}-%{version}/TRANSLATION
+%dir %{_defaultdocdir}/%{name}-%{version}
+%lang(en) %{_defaultdocdir}/%{name}-%{version}/en
+%lang(it) %{_defaultdocdir}/%{name}-%{version}/it
+%{_defaultdocdir}/%{name}-%{version}/BUILDING
+%{_defaultdocdir}/%{name}-%{version}/NEWS
+%{_defaultdocdir}/%{name}-%{version}/README*
+%{_defaultdocdir}/%{name}-%{version}/PACKAGING
+%{_defaultdocdir}/%{name}-%{version}/LINKS
+%{_defaultdocdir}/%{name}-%{version}/TRANSLATION
 
 
 %changelog
+* Mon Jan 02 2012 Dan Horák <dan[at]danny.cz> - 1.4.0-1
+- update to 1.4.0
+
 * Fri Jun 24 2011 Dan Horák <dan@danny.cz> - 1.3.9-6
 - fix build with cups 1.5 (#716107)
 
