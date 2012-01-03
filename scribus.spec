@@ -1,6 +1,6 @@
 Name:           scribus
 Version:        1.4.0
-Release:        1%{?dist}.1
+Release:        2%{?dist}
 
 Summary:        DeskTop Publishing application written in Qt
 
@@ -8,8 +8,11 @@ Group:          Applications/Productivity
 License:        GPLv2+
 URL:            http://www.scribus.net/
 Source0:        http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.bz2
+# http://bugs.scribus.net/view.php?id=10485
 Patch0:         %{name}-1.4.0-swatches.patch
+# http://bugs.scribus.net/view.php?id=10486
 Patch1:         %{name}-1.4.0-profiles.patch
+# use versioned documentation directory
 Patch2:         %{name}-1.4.0-docdir.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
@@ -184,6 +187,9 @@ update-desktop-database &> /dev/null || :
 
 
 %changelog
+* Tue Jan 03 2012 Dan Horák <dan[at]danny.cz> - 1.4.0-2
+- the swatches/profiles patches were submitted to upstream bugtracker
+
 * Mon Jan 02 2012 Dan Horák <dan[at]danny.cz> - 1.4.0-1.1
 - install profiles and swatches to datadir
 - use versioned docdir
