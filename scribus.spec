@@ -1,6 +1,6 @@
 Name:           scribus
 Version:        1.4.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 
 Summary:        DeskTop Publishing application written in Qt
 
@@ -14,6 +14,8 @@ Patch0:         %{name}-1.4.0-swatches.patch
 Patch1:         %{name}-1.4.0-profiles.patch
 # use versioned documentation directory
 Patch2:         %{name}-1.4.0-docdir.patch
+# rhbz#800765 and http://bugs.scribus.net/view.php?id=10509
+Patch3:         %{name}-1.4.0-export-as-image.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires:  cmake
@@ -87,6 +89,7 @@ Obsoletes:      %{name}-doc < 1.3.5-0.12.beta
 %patch0 -p2 -b .swatches
 %patch1 -p2 -b .profiles
 %patch2 -p1 -b .docdir
+%patch3 -p2 -b .export-as-image
 
 # recode man page to UTF-8
 pushd scribus/manpages
@@ -187,6 +190,9 @@ update-desktop-database &> /dev/null || :
 
 
 %changelog
+* Wed Mar 07 2012 Dan Horák <dan[at]danny.cz> - 1.4.0-5
+- fix crash at export as image (rhbz#800765)
+
 * Tue Feb 28 2012 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.4.0-4
 - Rebuilt for c++ ABI breakage
 

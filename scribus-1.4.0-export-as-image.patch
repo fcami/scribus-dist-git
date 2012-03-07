@@ -1,0 +1,21 @@
+commit 4617fdc649b10a32206fd974cd9b7a8c824f997c
+Author: jghali <jghali@11d20701-8431-0410-a711-e3c959e3b870>
+Date:   Thu Jan 12 23:03:46 2012 +0000
+
+    #10509 : crash on attempt to export as image
+    
+    git-svn-id: svn://scribus.net/branches/Version14x@17196 11d20701-8431-0410-a711-e3c959e3b870
+
+diff --git a/Scribus/scribus/plugins/pixmapexport/export.cpp b/Scribus/scribus/plugins/pixmapexport/export.cpp
+index 6ff5e0a..d9e273a 100644
+--- a/Scribus/scribus/plugins/pixmapexport/export.cpp
++++ b/Scribus/scribus/plugins/pixmapexport/export.cpp
+@@ -96,7 +96,7 @@ bool PixmapExportPlugin::run(ScribusDoc* doc, QString target)
+ 	Q_ASSERT(target.isEmpty());
+ 	Q_ASSERT(!doc->masterPageMode());
+ 	QSharedPointer<ExportBitmap> ex( new ExportBitmap() );
+-	QSharedPointer<ExportForm>  dia( new ExportForm(doc->scMW(), doc, ex->pageDPI, ex->quality, ex->bitmapType) );
++	QSharedPointer<ExportForm>  dia( new ExportForm(0, doc, ex->pageDPI, ex->quality, ex->bitmapType) );
+ 
+ 	// interval widgets handling
+ 	QString tmp;
