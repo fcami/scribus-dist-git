@@ -1,22 +1,16 @@
 Name:           scribus
-Version:        1.4.0
-Release:        5%{?dist}
+Version:        1.4.1
+Release:        1%{?dist}
 
 Summary:        DeskTop Publishing application written in Qt
 
 Group:          Applications/Productivity
 License:        GPLv2+
 URL:            http://www.scribus.net/
-Source0:        http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.bz2
-# http://bugs.scribus.net/view.php?id=10485
-Patch0:         %{name}-1.4.0-swatches.patch
-# http://bugs.scribus.net/view.php?id=10486
-Patch1:         %{name}-1.4.0-profiles.patch
+Source0:        http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.xz
+Source1:        http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.xz.asc
 # use versioned documentation directory
-Patch2:         %{name}-1.4.0-docdir.patch
-# rhbz#800765 and http://bugs.scribus.net/view.php?id=10509
-Patch3:         %{name}-1.4.0-export-as-image.patch
-BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
+Patch0:         %{name}-1.4.0-docdir.patch
 
 BuildRequires:  cmake
 
@@ -85,11 +79,8 @@ Obsoletes:      %{name}-doc < 1.3.5-0.12.beta
 %{summary}
 
 %prep
-%setup -q
-%patch0 -p2 -b .swatches
-%patch1 -p2 -b .profiles
-%patch2 -p1 -b .docdir
-%patch3 -p2 -b .export-as-image
+%setup -q -n Scribus
+%patch0 -p1 -b .docdir
 
 # recode man page to UTF-8
 pushd scribus/manpages
@@ -137,10 +128,6 @@ desktop-file-install --vendor="fedora"                      \
     scribus.desktop
 
 
-%clean
-rm -rf ${RPM_BUILD_ROOT}
-
-
 %post
 update-mime-database %{_datadir}/mime > /dev/null 2>&1 || :
 update-desktop-database &> /dev/null || :
@@ -152,7 +139,6 @@ update-desktop-database &> /dev/null || :
 
 
 %files
-%defattr(-,root,root,-)
 %doc %{_defaultdocdir}/%{name}-%{version}/AUTHORS
 %doc %{_defaultdocdir}/%{name}-%{version}/ChangeLog
 %doc %{_defaultdocdir}/%{name}-%{version}/ChangeLogSVN
@@ -172,13 +158,12 @@ update-desktop-database &> /dev/null || :
 %{_mandir}/de/man1/*
 
 %files devel
-%defattr(-,root,root,-)
 %doc AUTHORS COPYING
 %{_includedir}/%{name}/
 
 %files doc
-%defattr(-,root,root,-)
 %dir %{_defaultdocdir}/%{name}-%{version}
+%lang(de) %{_defaultdocdir}/%{name}-%{version}/de
 %lang(en) %{_defaultdocdir}/%{name}-%{version}/en
 %lang(it) %{_defaultdocdir}/%{name}-%{version}/it
 %{_defaultdocdir}/%{name}-%{version}/BUILDING
@@ -190,6 +175,9 @@ update-desktop-database &> /dev/null || :
 
 
 %changelog
+* Sun May 06 2012 Dan Horák <dan[at]danny.cz> - 1.4.1-1
+- update to 1.4.1
+
 * Wed Mar 07 2012 Dan Horák <dan[at]danny.cz> - 1.4.0-5
 - fix crash at export as image (rhbz#800765)
 
