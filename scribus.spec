@@ -1,6 +1,6 @@
 Name:           scribus
 Version:        1.4.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 
 Summary:        DeskTop Publishing application written in Qt
 
@@ -11,6 +11,7 @@ Source0:        http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.
 Source1:        http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.xz.asc
 # use versioned documentation directory
 Patch0:         %{name}-1.4.0-docdir.patch
+Patch1:         %{name}-to-double.patch
 
 BuildRequires:  cmake
 
@@ -81,6 +82,7 @@ Obsoletes:      %{name}-doc < 1.3.5-0.12.beta
 %prep
 %setup -q -n Scribus
 %patch0 -p1 -b .docdir
+%patch1 -p1 -b .double
 
 # recode man page to UTF-8
 pushd scribus/manpages
@@ -111,7 +113,6 @@ popd
 
 
 %install
-rm -rf ${RPM_BUILD_ROOT}
 pushd build
 make install DESTDIR=$RPM_BUILD_ROOT
 popd
@@ -175,6 +176,9 @@ update-desktop-database &> /dev/null || :
 
 
 %changelog
+* Thu Aug  9 2012 Peter Robinson <pbrobinson@fedoraproject.org> - 1.4.1-3
+- Add patch to fix FTBFS on ARM
+
 * Sat Jul 21 2012 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.4.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_18_Mass_Rebuild
 
