@@ -1,6 +1,6 @@
 Name:           scribus
 Version:        1.4.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 
 Summary:        DeskTop Publishing application written in Qt
 
@@ -176,6 +176,9 @@ update-desktop-database &> /dev/null || :
 
 
 %changelog
+* Fri Dec 21 2012 Adam Tkac <atkac redhat com> - 1.4.1-4
+- rebuild against new libjpeg
+
 * Thu Aug  9 2012 Peter Robinson <pbrobinson@fedoraproject.org> - 1.4.1-3
 - Add patch to fix FTBFS on ARM
 
