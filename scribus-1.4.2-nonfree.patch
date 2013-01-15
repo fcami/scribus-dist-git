@@ -1,0 +1,34 @@
+diff -up scribus-1.4.2/scribus/CMakeLists.txt.nonfree scribus-1.4.2/scribus/CMakeLists.txt
+--- scribus-1.4.2/scribus/CMakeLists.txt.nonfree	2012-06-07 22:01:10.000000000 +0200
++++ scribus-1.4.2/scribus/CMakeLists.txt	2013-01-15 18:50:11.000000000 +0100
+@@ -2,7 +2,6 @@ IF(WIN32)
+   ADD_DEFINITIONS(-DQT_DLL)
+ ENDIF(WIN32)
+ 
+-ADD_SUBDIRECTORY(doc)
+ ADD_SUBDIRECTORY(dtd)
+ ADD_SUBDIRECTORY(manpages)
+ ADD_SUBDIRECTORY(colormgmt)
+diff -up scribus-1.4.2/scribus/helpbrowser.cpp.nonfree scribus-1.4.2/scribus/helpbrowser.cpp
+--- scribus-1.4.2/scribus/helpbrowser.cpp.nonfree	2012-06-24 22:43:17.000000000 +0200
++++ scribus-1.4.2/scribus/helpbrowser.cpp	2013-01-15 18:50:11.000000000 +0100
+@@ -716,7 +716,7 @@ QString HelpBrowser::historyFile()
+ 
+ void HelpBrowser::displayNoHelp()
+ {
+-	QString noHelpMsg=tr("<h2><p>Sorry, no manual is installed!</p><p>Please see:</p><ul><li>http://docs.scribus.net for updated documentation</li><li>http://www.scribus.net for downloads</li></ul></h2>",
++	QString noHelpMsg=tr("<h2><p>Sorry, the manual is not installed because it is not freely distributable and thus can't be included in Fedora!</p><p>Please see:</p><ul><li>http://docs.scribus.net for updated documentation</li><li>http://www.scribus.net for downloads</li></ul></h2>",
+ 						 "HTML message for no documentation available to show");
+ 
+ 	textBrowser->setText(noHelpMsg);
+diff -up scribus-1.4.2/scribus/profiles/CMakeLists.txt.nonfree scribus-1.4.2/scribus/profiles/CMakeLists.txt
+--- scribus-1.4.2/scribus/profiles/CMakeLists.txt.nonfree	2012-01-03 22:47:01.000000000 +0100
++++ scribus-1.4.2/scribus/profiles/CMakeLists.txt	2013-01-15 18:50:11.000000000 +0100
+@@ -6,7 +6,5 @@ INSTALL(FILES
+ GenericCMYK.icm
+ GenericCMYK.txt
+ Readme
+-sRGB.icm
+-srgb.license
+   DESTINATION ${SHAREDIR}profiles
+ )

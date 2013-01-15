@@ -1,23 +1,27 @@
 Name:           scribus
-Version:        1.4.1
-Release:        4%{?dist}
+Version:        1.4.2
+Release:        1%{?dist}
 
 Summary:        DeskTop Publishing application written in Qt
 
 Group:          Applications/Productivity
 License:        GPLv2+
 URL:            http://www.scribus.net/
-Source0:        http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.xz
-Source1:        http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.xz.asc
+# ./make-free-archive %{version}
+Source0:        %{name}-%{version}-free.tar.xz
+#Source0:        http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.xz
+#Source1:        http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.xz.asc
 # use versioned documentation directory
 Patch0:         %{name}-1.4.0-docdir.patch
 Patch1:         %{name}-to-double.patch
+# fix build with non-free content removed
+Patch2:         %{name}-1.4.2-nonfree.patch
 
 BuildRequires:  cmake
 
 BuildRequires:  cups-devel
 BuildRequires:  desktop-file-utils
-BuildRequires:  lcms-devel
+BuildRequires:  lcms2-devel
 BuildRequires:  libart_lgpl-devel
 BuildRequires:  libjpeg-devel
 BuildRequires:  libpng-devel
@@ -40,7 +44,8 @@ Requires:       python
 Requires:       python-imaging
 Requires:       tkinter
 Requires:       shared-mime-info
-Requires:       %{name}-doc = %{version}-%{release}
+Obsoletes:      %{name}-doc < %{version}-%{release}
+Obsoletes:      %{name}-devel < %{version}-%{release}
 
 %filter_provides_in %{_libdir}/%{name}/plugins
 %filter_setup
@@ -57,32 +62,11 @@ features, such as CMYK color, easy PDF creation, Encapsulated Postscript
 import/export and creation of color separations.
 
 
-%package        devel
-Summary:        Header files for Scribus
-Group:          Development/Libraries
-Requires:       %{name} = %{version}-%{release}
-
-%description    devel
-Header files for Scribus.
-
-
-%package        doc
-Summary:        Documentation files for Scribus
-Group:          Development/Tools
-Requires:       %{name} = %{version}-%{release}
-%if 0%{?fedora} > 9
-BuildArch:      noarch
-Obsoletes:      %{name}-doc < 1.3.5-0.12.beta
-%endif
-
-
-%description    doc
-%{summary}
-
 %prep
-%setup -q -n Scribus
+%setup -q
 %patch0 -p1 -b .docdir
 %patch1 -p1 -b .double
+%patch2 -p1 -b .nonfree
 
 # recode man page to UTF-8
 pushd scribus/manpages
@@ -106,7 +90,7 @@ done
 %build
 mkdir build
 pushd build
-%cmake -DWANT_DISTROBUILD=YES ..
+%cmake -DWANT_DISTROBUILD=YES -DWANT_NOHEADERINSTALL=YES ..
 
 make VERBOSE=1 %{?_smp_mflags}
 popd
@@ -128,6 +112,9 @@ desktop-file-install --vendor="fedora"                      \
     --dir=${RPM_BUILD_ROOT}%{_datadir}/applications         \
     scribus.desktop
 
+# remove unwanted stuff
+rm -rf ${RPM_BUILD_ROOT}%{_defaultdocdir}/%{name}
+
 
 %post
 update-mime-database %{_datadir}/mime > /dev/null 2>&1 || :
@@ -140,12 +127,7 @@ update-desktop-database &> /dev/null || :
 
 
 %files
-%doc %{_defaultdocdir}/%{name}-%{version}/AUTHORS
-%doc %{_defaultdocdir}/%{name}-%{version}/ChangeLog
-%doc %{_defaultdocdir}/%{name}-%{version}/ChangeLogSVN
-%doc %{_defaultdocdir}/%{name}-%{version}/COPYING
-%doc %{_defaultdocdir}/%{name}-%{version}/README
-%doc %{_defaultdocdir}/%{name}-%{version}/TODO
+%doc AUTHORS ChangeLog COPYING LINKS README
 %{_bindir}/%{name}
 %{_libdir}/%{name}/
 %{_datadir}/applications/fedora-%{name}.desktop
@@ -158,24 +140,14 @@ update-desktop-database &> /dev/null || :
 %{_mandir}/pl/man1/*
 %{_mandir}/de/man1/*
 
-%files devel
-%doc AUTHORS COPYING
-%{_includedir}/%{name}/
-
-%files doc
-%dir %{_defaultdocdir}/%{name}-%{version}
-%lang(de) %{_defaultdocdir}/%{name}-%{version}/de
-%lang(en) %{_defaultdocdir}/%{name}-%{version}/en
-%lang(it) %{_defaultdocdir}/%{name}-%{version}/it
-%{_defaultdocdir}/%{name}-%{version}/BUILDING
-%{_defaultdocdir}/%{name}-%{version}/NEWS
-%{_defaultdocdir}/%{name}-%{version}/README*
-%{_defaultdocdir}/%{name}-%{version}/PACKAGING
-%{_defaultdocdir}/%{name}-%{version}/LINKS
-%{_defaultdocdir}/%{name}-%{version}/TRANSLATION
-
 
 %changelog
+* Tue Jan 15 2013 Dan Horák <dan[at]danny.cz> - 1.4.2-1
+- update to 1.4.2
+- remove non-free content from source archive (#887221)
+- drop doc and devel sub-packages
+- switch to lcms2
+
 * Fri Dec 21 2012 Adam Tkac <atkac redhat com> - 1.4.1-4
 - rebuild against new libjpeg
 
