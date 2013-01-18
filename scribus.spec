@@ -1,6 +1,6 @@
 Name:           scribus
 Version:        1.4.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 
 Summary:        DeskTop Publishing application written in Qt
 
@@ -35,7 +35,7 @@ BuildRequires:  zlib-devel
 BuildRequires:  freetype-devel
 BuildRequires:  gnutls-devel
 BuildRequires:  cairo-devel
-BuildRequires:  aspell-devel
+BuildRequires:  hunspell-devel
 BuildRequires:  boost-devel
 BuildRequires:  podofo-devel
 BuildRequires:  hyphen-devel
@@ -90,7 +90,7 @@ done
 %build
 mkdir build
 pushd build
-%cmake -DWANT_DISTROBUILD=YES -DWANT_NOHEADERINSTALL=YES ..
+%cmake -DWANT_DISTROBUILD=YES -DWANT_HUNSPELL=YES -DWANT_NOHEADERINSTALL=YES ..
 
 make VERBOSE=1 %{?_smp_mflags}
 popd
@@ -142,6 +142,9 @@ update-desktop-database &> /dev/null || :
 
 
 %changelog
+* Fri Jan 18 2013 Dan Horák <dan[at]danny.cz> - 1.4.2-2
+- use hunspell to be consistent with the rest of the system
+
 * Tue Jan 15 2013 Dan Horák <dan[at]danny.cz> - 1.4.2-1
 - update to 1.4.2
 - remove non-free content from source archive (#887221)
