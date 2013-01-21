@@ -1,6 +1,6 @@
 Name:           scribus
 Version:        1.4.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 
 Summary:        DeskTop Publishing application written in Qt
 
@@ -142,6 +142,9 @@ update-desktop-database &> /dev/null || :
 
 
 %changelog
+* Mon Jan 21 2013 Adam Tkac <atkac redhat com> - 1.4.2-3
+- rebuild due to "jpeg8-ABI" feature drop
+
 * Fri Jan 18 2013 Dan Horák <dan[at]danny.cz> - 1.4.2-2
 - use hunspell to be consistent with the rest of the system
 
