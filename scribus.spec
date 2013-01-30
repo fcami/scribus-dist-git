@@ -1,6 +1,6 @@
 Name:           scribus
 Version:        1.4.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 
 Summary:        DeskTop Publishing application written in Qt
 
@@ -16,6 +16,8 @@ Patch0:         %{name}-1.4.0-docdir.patch
 Patch1:         %{name}-to-double.patch
 # fix build with non-free content removed
 Patch2:         %{name}-1.4.2-nonfree.patch
+# update for Pillow (#896301)
+Patch3:         %{name}-pillow.patch
 
 BuildRequires:  cmake
 
@@ -67,6 +69,7 @@ import/export and creation of color separations.
 %patch0 -p1 -b .docdir
 %patch1 -p1 -b .double
 %patch2 -p1 -b .nonfree
+%patch3 -p1 -b .pillow
 
 # recode man page to UTF-8
 pushd scribus/manpages
@@ -142,6 +145,9 @@ update-desktop-database &> /dev/null || :
 
 
 %changelog
+* Wed Jan 30 2013 Dan Horák <dan[at]danny.cz> - 1.4.2-4
+- update for Pillow (#896301)
+
 * Mon Jan 21 2013 Adam Tkac <atkac redhat com> - 1.4.2-3
 - rebuild due to "jpeg8-ABI" feature drop
 
