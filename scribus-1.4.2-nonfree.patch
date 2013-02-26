@@ -1,6 +1,7 @@
-diff -up scribus-1.4.2/scribus/CMakeLists.txt.nonfree scribus-1.4.2/scribus/CMakeLists.txt
---- scribus-1.4.2/scribus/CMakeLists.txt.nonfree	2012-06-07 22:01:10.000000000 +0200
-+++ scribus-1.4.2/scribus/CMakeLists.txt	2013-01-15 18:50:11.000000000 +0100
+Index: scribus-1.4.2/scribus/CMakeLists.txt
+===================================================================
+--- scribus-1.4.2.orig/scribus/CMakeLists.txt
++++ scribus-1.4.2/scribus/CMakeLists.txt
 @@ -2,7 +2,6 @@ IF(WIN32)
    ADD_DEFINITIONS(-DQT_DLL)
  ENDIF(WIN32)
@@ -9,9 +10,10 @@ diff -up scribus-1.4.2/scribus/CMakeLists.txt.nonfree scribus-1.4.2/scribus/CMak
  ADD_SUBDIRECTORY(dtd)
  ADD_SUBDIRECTORY(manpages)
  ADD_SUBDIRECTORY(colormgmt)
-diff -up scribus-1.4.2/scribus/helpbrowser.cpp.nonfree scribus-1.4.2/scribus/helpbrowser.cpp
---- scribus-1.4.2/scribus/helpbrowser.cpp.nonfree	2012-06-24 22:43:17.000000000 +0200
-+++ scribus-1.4.2/scribus/helpbrowser.cpp	2013-01-15 18:50:11.000000000 +0100
+Index: scribus-1.4.2/scribus/helpbrowser.cpp
+===================================================================
+--- scribus-1.4.2.orig/scribus/helpbrowser.cpp
++++ scribus-1.4.2/scribus/helpbrowser.cpp
 @@ -716,7 +716,7 @@ QString HelpBrowser::historyFile()
  
  void HelpBrowser::displayNoHelp()
@@ -21,9 +23,10 @@ diff -up scribus-1.4.2/scribus/helpbrowser.cpp.nonfree scribus-1.4.2/scribus/hel
  						 "HTML message for no documentation available to show");
  
  	textBrowser->setText(noHelpMsg);
-diff -up scribus-1.4.2/scribus/profiles/CMakeLists.txt.nonfree scribus-1.4.2/scribus/profiles/CMakeLists.txt
---- scribus-1.4.2/scribus/profiles/CMakeLists.txt.nonfree	2012-01-03 22:47:01.000000000 +0100
-+++ scribus-1.4.2/scribus/profiles/CMakeLists.txt	2013-01-15 18:50:11.000000000 +0100
+Index: scribus-1.4.2/scribus/profiles/CMakeLists.txt
+===================================================================
+--- scribus-1.4.2.orig/scribus/profiles/CMakeLists.txt
++++ scribus-1.4.2/scribus/profiles/CMakeLists.txt
 @@ -6,7 +6,5 @@ INSTALL(FILES
  GenericCMYK.icm
  GenericCMYK.txt

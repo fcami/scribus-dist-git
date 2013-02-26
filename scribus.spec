@@ -1,6 +1,6 @@
 Name:           scribus
 Version:        1.4.2
-Release:        4%{?dist}
+Release:        5%{?dist}
 
 Summary:        DeskTop Publishing application written in Qt
 
@@ -111,7 +111,10 @@ find ${RPM_BUILD_ROOT} -type f -name "*.la" -exec rm -f {} ';'
 
 # install the global desktop file
 rm -f ${RPM_BUILD_ROOT}%{_datadir}/mimelnk/application/*scribus.desktop
-desktop-file-install --vendor="fedora"                      \
+desktop-file-install \
+%if (0%{?fedora} && 0%{?fedora} < 19) || (0%{?rhel} && 0%{?rhel} < 7)
+    --vendor="fedora"                      \
+%endif
     --dir=${RPM_BUILD_ROOT}%{_datadir}/applications         \
     scribus.desktop
 
@@ -133,7 +136,7 @@ update-desktop-database &> /dev/null || :
 %doc AUTHORS ChangeLog COPYING LINKS README
 %{_bindir}/%{name}
 %{_libdir}/%{name}/
-%{_datadir}/applications/fedora-%{name}.desktop
+%{_datadir}/applications/*%{name}.desktop
 %{_datadir}/mime/packages/%{name}.xml
 %{_datadir}/pixmaps/*
 %{_datadir}/%{name}/
@@ -145,6 +148,9 @@ update-desktop-database &> /dev/null || :
 
 
 %changelog
+* Mon Feb 25 2013 Toshio Kuratomi <toshio@fedoraproject.org> - 1.4.2-5
+- Remove --vendor from desktop-file-install for F19+ https://fedorahosted.org/fesco/ticket/1077
+
 * Wed Jan 30 2013 Dan Horák <dan[at]danny.cz> - 1.4.2-4
 - update for Pillow (#896301)
 
