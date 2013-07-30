@@ -1,6 +1,6 @@
 Name:           scribus
 Version:        1.4.2
-Release:        5%{?dist}
+Release:        6%{?dist}
 
 Summary:        DeskTop Publishing application written in Qt
 
@@ -148,6 +148,9 @@ update-desktop-database &> /dev/null || :
 
 
 %changelog
+* Tue Jul 30 2013 Petr Machata <pmachata@redhat.com> - 1.4.2-6
+- Rebuild for boost 1.54.0
+
 * Mon Feb 25 2013 Toshio Kuratomi <toshio@fedoraproject.org> - 1.4.2-5
 - Remove --vendor from desktop-file-install for F19+ https://fedorahosted.org/fesco/ticket/1077
 
