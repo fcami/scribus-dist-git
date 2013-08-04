@@ -1,6 +1,6 @@
 Name:           scribus
 Version:        1.4.2
-Release:        6%{?dist}
+Release:        7%{?dist}
 
 Summary:        DeskTop Publishing application written in Qt
 
@@ -148,6 +148,9 @@ update-desktop-database &> /dev/null || :
 
 
 %changelog
+* Sun Aug 04 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.4.2-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_20_Mass_Rebuild
+
 * Tue Jul 30 2013 Petr Machata <pmachata@redhat.com> - 1.4.2-6
 - Rebuild for boost 1.54.0
 
