@@ -28,8 +28,11 @@ rm scribus/profiles/{sRGB.icm,srgb.license}
 # remove non-free content from swatches
 rm resources/swatches/*.eps
 rm resources/swatches/dtp-studio-free-palettes-license.rtf
+
 rm resources/swatches/GiveLife_Color_System_*.xml
 rm resources/swatches/givelife_colors_license.rtf
+
+rm resources/swatches/Federal_Identity_Program.xml
 
 popd
 

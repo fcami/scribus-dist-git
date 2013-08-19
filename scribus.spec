@@ -1,6 +1,6 @@
 Name:           scribus
-Version:        1.4.2
-Release:        7%{?dist}
+Version:        1.4.3
+Release:        1%{?dist}
 
 Summary:        DeskTop Publishing application written in Qt
 
@@ -16,8 +16,6 @@ Patch0:         %{name}-1.4.0-docdir.patch
 Patch1:         %{name}-to-double.patch
 # fix build with non-free content removed
 Patch2:         %{name}-1.4.2-nonfree.patch
-# update for Pillow (#896301)
-Patch3:         %{name}-pillow.patch
 
 BuildRequires:  cmake
 
@@ -69,7 +67,6 @@ import/export and creation of color separations.
 %patch0 -p1 -b .docdir
 %patch1 -p1 -b .double
 %patch2 -p1 -b .nonfree
-%patch3 -p1 -b .pillow
 
 # recode man page to UTF-8
 pushd scribus/manpages
@@ -148,6 +145,9 @@ update-desktop-database &> /dev/null || :
 
 
 %changelog
+* Mon Aug 19 2013 Dan Horák <dan[at]danny.cz> - 1.4.3-1
+- update to 1.4.3 (#990030)
+
 * Sun Aug 04 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.4.2-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_20_Mass_Rebuild
 
