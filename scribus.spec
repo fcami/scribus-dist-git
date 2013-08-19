@@ -11,8 +11,6 @@ URL:            http://www.scribus.net/
 Source0:        %{name}-%{version}-free.tar.xz
 #Source0:        http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.xz
 #Source1:        http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.xz.asc
-# use versioned documentation directory
-Patch0:         %{name}-1.4.0-docdir.patch
 Patch1:         %{name}-to-double.patch
 # fix build with non-free content removed
 Patch2:         %{name}-1.4.2-nonfree.patch
@@ -64,7 +62,6 @@ import/export and creation of color separations.
 
 %prep
 %setup -q
-%patch0 -p1 -b .docdir
 %patch1 -p1 -b .double
 %patch2 -p1 -b .nonfree
 
@@ -147,6 +144,7 @@ update-desktop-database &> /dev/null || :
 %changelog
 * Mon Aug 19 2013 Dan Horák <dan[at]danny.cz> - 1.4.3-1
 - update to 1.4.3 (#990030)
+- update for unversioned docdir
 
 * Sun Aug 04 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.4.2-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_20_Mass_Rebuild
