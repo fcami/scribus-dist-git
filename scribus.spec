@@ -1,6 +1,6 @@
 Name:           scribus
 Version:        1.4.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 
 Summary:        DeskTop Publishing application written in Qt
 
@@ -11,7 +11,7 @@ URL:            http://www.scribus.net/
 Source0:        %{name}-%{version}-free.tar.xz
 #Source0:        http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.xz
 #Source1:        http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.xz.asc
-Patch1:         %{name}-to-double.patch
+Patch1:         %{name}-1.4.3-to-double.patch
 # fix build with non-free content removed
 Patch2:         %{name}-1.4.2-nonfree.patch
 
@@ -142,6 +142,9 @@ update-desktop-database &> /dev/null || :
 
 
 %changelog
+* Thu Sep 19 2013 Dan Horák <dan[at]danny.cz> - 1.4.3-2
+- fix the double patch (#1009979)
+
 * Mon Aug 19 2013 Dan Horák <dan[at]danny.cz> - 1.4.3-1
 - update to 1.4.3 (#990030)
 - update for unversioned docdir

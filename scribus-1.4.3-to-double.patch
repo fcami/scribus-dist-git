@@ -1,0 +1,49 @@
+diff -up scribus-1.4.3/scribus/ui/modetoolbar.cpp.double scribus-1.4.3/scribus/ui/modetoolbar.cpp
+--- scribus-1.4.3/scribus/ui/modetoolbar.cpp.double	2012-05-21 18:00:08.000000000 +0200
++++ scribus-1.4.3/scribus/ui/modetoolbar.cpp	2013-09-19 21:50:48.000000000 +0200
+@@ -40,7 +40,7 @@ ModeToolBar::ModeToolBar(ScribusMainWind
+ {
+ 	SubMode = 0;
+ 	ValCount = 32;
+-	static qreal AutoShapes0[] = {0.0, 0.0, 0.0, 0.0, 100.0, 0.0, 100.0, 0.0, 100.0, 0.0, 100.0, 0.0,
++	static double AutoShapes0[] = {0.0, 0.0, 0.0, 0.0, 100.0, 0.0, 100.0, 0.0, 100.0, 0.0, 100.0, 0.0,
+ 									100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 0.0, 100.0, 0.0, 100.0,
+ 									0.0, 100.0, 0.0, 100.0, 0.0, 0.0, 0.0, 0.0};
+ 	ShapeVals = AutoShapes0;
+@@ -84,7 +84,7 @@ ModeToolBar::ModeToolBar(ScribusMainWind
+ 	this->addAction(m_ScMW->scrActions["toolsEyeDropper"]);
+ 
+ 	languageChange();
+-	connect(Rechteck, SIGNAL(FormSel(int, int, qreal *)), this, SLOT(SelShape(int, int, qreal *)));
++	connect(Rechteck, SIGNAL(FormSel(int, int, qreal *)), this, SLOT(SelShape(int, int, double *)));
+ }
+ 
+ void ModeToolBar::GetPolyProps()
+@@ -98,7 +98,7 @@ void ModeToolBar::GetPolyProps()
+ 	delete dia;
+ }
+ 
+-void ModeToolBar::SelShape(int s, int c, qreal *vals)
++void ModeToolBar::SelShape(int s, int c, double *vals)
+ {
+ 	m_ScMW->scrActions["toolsInsertShape"]->setIcon(QIcon(Rechteck->getIconPixmap(s,16)));
+ //	insertShapeButtonMenu->hide();
+diff -up scribus-1.4.3/scribus/ui/modetoolbar.h.double scribus-1.4.3/scribus/ui/modetoolbar.h
+--- scribus-1.4.3/scribus/ui/modetoolbar.h.double	2012-02-14 23:57:05.000000000 +0100
++++ scribus-1.4.3/scribus/ui/modetoolbar.h	2013-08-19 17:13:59.000000000 +0200
+@@ -51,13 +51,13 @@ public:
+ 
+ 	int SubMode;
+ 	int ValCount;
+-	qreal *ShapeVals;
++	double *ShapeVals;
+ 	
+ 	virtual void changeEvent(QEvent *e);
+ 
+ public slots:
+ 	void GetPolyProps();
+-	void SelShape(int s, int c, qreal *vals);
++	void SelShape(int s, int c, double *vals);
+ 	void languageChange();
+ 		
+ protected:
