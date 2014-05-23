@@ -1,6 +1,6 @@
 Name:           scribus
 Version:        1.4.3
-Release:        2%{?dist}
+Release:        3%{?dist}
 
 Summary:        DeskTop Publishing application written in Qt
 
@@ -142,6 +142,9 @@ update-desktop-database &> /dev/null || :
 
 
 %changelog
+* Fri May 23 2014 Petr Machata <pmachata@redhat.com> - 1.4.3-3
+- Rebuild for boost 1.55.0
+
 * Thu Sep 19 2013 Dan Horák <dan[at]danny.cz> - 1.4.3-2
 - fix the double patch (#1009979)
 
