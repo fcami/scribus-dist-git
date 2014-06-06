@@ -1,6 +1,6 @@
 Name:           scribus
-Version:        1.4.3
-Release:        3%{?dist}
+Version:        1.4.4
+Release:        1%{?dist}
 
 Summary:        DeskTop Publishing application written in Qt
 
@@ -142,6 +142,9 @@ update-desktop-database &> /dev/null || :
 
 
 %changelog
+* Fri Jun  6 2014 Tom Callaway <spot@fedoraproject.org> - 1.4.4-1
+- update to 1.4.4, drop non-free dot files
+
 * Fri May 23 2014 Petr Machata <pmachata@redhat.com> - 1.4.3-3
 - Rebuild for boost 1.55.0
 

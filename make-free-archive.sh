@@ -34,6 +34,9 @@ rm resources/swatches/givelife_colors_license.rtf
 
 rm resources/swatches/Federal_Identity_Program.xml
 
+# Remove non-free (CC-BY-SA-NC) dot files
+rm resources/editorconfig/dot.*
+
 popd
 
 echo "Creating sources ..."
