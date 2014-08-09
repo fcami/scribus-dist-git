@@ -1,6 +1,6 @@
 Name:           scribus
 Version:        1.4.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 
 Summary:        DeskTop Publishing application written in Qt
 
@@ -117,13 +117,19 @@ rm -rf ${RPM_BUILD_ROOT}%{_defaultdocdir}/%{name}
 
 
 %post
-update-mime-database %{_datadir}/mime > /dev/null 2>&1 || :
-update-desktop-database &> /dev/null || :
-
+touch --no-create %{_datadir}/mime/packages &> /dev/null || :
 
 %postun
-update-mime-database %{_datadir}/mime > /dev/null 2>&1 || :
+if [ $1 -eq 0 ] ; then
+touch --no-create %{_datadir}/mime/packages &> /dev/null || :
 update-desktop-database &> /dev/null || :
+update-mime-database %{?fedora:-n} %{_datadir}/mime &> /dev/null || :
+fi
+
+%posttrans
+update-desktop-database &> /dev/null || :
+update-mime-database %{?fedora:-n} %{_datadir}/mime &> /dev/null || :
+
 
 
 %files
@@ -142,6 +148,9 @@ update-desktop-database &> /dev/null || :
 
 
 %changelog
+* Sat Aug 09 2014 Rex Dieter <rdieter@fedoraproject.org> 1.4.4-2
+- optimize/update scriptlets
+
 * Fri Jun  6 2014 Tom Callaway <spot@fedoraproject.org> - 1.4.4-1
 - update to 1.4.4, drop non-free dot files
 
