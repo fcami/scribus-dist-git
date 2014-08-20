@@ -1,6 +1,6 @@
 Name:           scribus
 Version:        1.4.4
-Release:        3%{?dist}
+Release:        4%{?dist}
 
 Summary:        DeskTop Publishing application written in Qt
 
@@ -148,6 +148,9 @@ update-mime-database %{?fedora:-n} %{_datadir}/mime &> /dev/null || :
 
 
 %changelog
+* Wed Aug 20 2014 Kevin Fenzi <kevin@scrye.com> - 1.4.4-4
+- Rebuild for rpm bug 1131892
+
 * Mon Aug 18 2014 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.4.4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_21_22_Mass_Rebuild
 
