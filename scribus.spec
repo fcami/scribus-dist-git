@@ -1,6 +1,6 @@
 Name:           scribus
 Version:        1.4.4
-Release:        4%{?dist}
+Release:        5%{?dist}
 
 Summary:        DeskTop Publishing application written in Qt
 
@@ -11,7 +11,7 @@ URL:            http://www.scribus.net/
 Source0:        %{name}-%{version}-free.tar.xz
 #Source0:        http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.xz
 #Source1:        http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.xz.asc
-Patch1:         %{name}-1.4.3-to-double.patch
+Patch1:         %{name}-1.4.4-qreal_double.patch
 # fix build with non-free content removed
 Patch2:         %{name}-1.4.2-nonfree.patch
 
@@ -148,6 +148,9 @@ update-mime-database %{?fedora:-n} %{_datadir}/mime &> /dev/null || :
 
 
 %changelog
+* Thu Aug 28 2014 Dan Horák <dan[at]danny.cz> - 1.4.4-5
+- switch to Debian patch for the qreal vs double conflict on ARM (fixes #1076885)
+
 * Wed Aug 20 2014 Kevin Fenzi <kevin@scrye.com> - 1.4.4-4
 - Rebuild for rpm bug 1131892
 
