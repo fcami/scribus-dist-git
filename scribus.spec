@@ -1,6 +1,6 @@
 Name:           scribus
 Version:        1.4.4
-Release:        5%{?dist}
+Release:        6%{?dist}
 
 Summary:        DeskTop Publishing application written in Qt
 
@@ -148,6 +148,9 @@ update-mime-database %{?fedora:-n} %{_datadir}/mime &> /dev/null || :
 
 
 %changelog
+* Tue Jan 27 2015 Petr Machata <pmachata@redhat.com> - 1.4.4-6
+- Rebuild for boost 1.57.0
+
 * Thu Aug 28 2014 Dan Horák <dan[at]danny.cz> - 1.4.4-5
 - switch to Debian patch for the qreal vs double conflict on ARM (fixes #1076885)
 
