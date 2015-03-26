@@ -1,6 +1,6 @@
 Name:           scribus
 Version:        1.4.4
-Release:        6%{?dist}
+Release:        7%{?dist}
 
 Summary:        DeskTop Publishing application written in Qt
 
@@ -115,6 +115,42 @@ desktop-file-install \
 # remove unwanted stuff
 rm -rf ${RPM_BUILD_ROOT}%{_defaultdocdir}/%{name}
 
+# Register as an application to be visible in the software center
+#
+# NOTE: It would be *awesome* if this file was maintained by the upstream
+# project, translated and installed into the right place during `make install`.
+#
+# See http://www.freedesktop.org/software/appstream/docs/ for more details.
+#
+mkdir -p $RPM_BUILD_ROOT%{_datadir}/appdata
+cat > $RPM_BUILD_ROOT%{_datadir}/appdata/%{name}.appdata.xml <<EOF
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright 2014 Richard Hughes <richard@hughsie.com> -->
+<!--
+BugReportURL: http://bugs.scribus.net/view.php?id=12708
+SentUpstream: 2014-09-18
+-->
+<application>
+  <id type="desktop">scribus.desktop</id>
+  <metadata_license>CC0-1.0</metadata_license>
+  <description>
+    <p>
+      Scribus is a desktop publishing application that allows you to create posters,
+      magazines and books ready to send off to a printing house.
+      It supports professional publishing features, such color separations, CMYK and
+      spot colors, ICC color management, and versatile PDF creation.
+    </p>
+    <!-- FIXME: Probably needs another paragraph or two -->
+  </description>
+  <url type="homepage">http://scribus.net/</url>
+  <screenshots>
+    <screenshot type="default">http://upload.wikimedia.org/wikipedia/commons/f/f4/Scribus-1.3-Linux.png</screenshot>
+  </screenshots>
+  <!-- FIXME: change this to an upstream email address for spec updates
+  <updatecontact>someone_who_cares@upstream_project.org</updatecontact>
+   -->
+</application>
+EOF
 
 %post
 touch --no-create %{_datadir}/mime/packages &> /dev/null || :
@@ -136,6 +172,7 @@ update-mime-database %{?fedora:-n} %{_datadir}/mime &> /dev/null || :
 %doc AUTHORS ChangeLog COPYING LINKS README
 %{_bindir}/%{name}
 %{_libdir}/%{name}/
+%{_datadir}/appdata/*%{name}.appdata.xml
 %{_datadir}/applications/*%{name}.desktop
 %{_datadir}/mime/packages/%{name}.xml
 %{_datadir}/pixmaps/*
@@ -148,6 +185,9 @@ update-mime-database %{?fedora:-n} %{_datadir}/mime &> /dev/null || :
 
 
 %changelog
+* Thu Mar 26 2015 Richard Hughes <rhughes@redhat.com> - 1.4.4-7
+- Add an AppData file for the software center
+
 * Tue Jan 27 2015 Petr Machata <pmachata@redhat.com> - 1.4.4-6
 - Rebuild for boost 1.57.0
 
