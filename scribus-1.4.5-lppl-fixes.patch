@@ -1,0 +1,36 @@
+diff -up scribus-1.4.5/resources/dicts/README_hyph_da_DK.txt.lppl scribus-1.4.5/resources/dicts/README_hyph_da_DK.txt
+--- scribus-1.4.5/resources/dicts/README_hyph_da_DK.txt.lppl	2015-05-07 16:50:30.664715518 -0400
++++ scribus-1.4.5/resources/dicts/README_hyph_da_DK.txt	2015-05-07 16:50:53.288550546 -0400
+@@ -3,6 +3,9 @@ Hyphenation dictionary
+ 
+ Language: Danish (da DK).  
+ Origin:   Based on the TeX hyphenation tables 
++          http://www.ctan.org/tex-archive/language/hyphenation/dkhyphn/dkhyphn.tex
++          The TeX hyphenation tables are released under the LaTeX Project
++          Public License (LPPL)
+ License:  GNU LGPL license.  
+ Author:   conversion author is Marco Huggenberger<marco@by-night.ch> 
+ 
+diff -up scribus-1.4.5/resources/dicts/README_is_IS.txt.lppl scribus-1.4.5/resources/dicts/README_is_IS.txt
+--- scribus-1.4.5/resources/dicts/README_is_IS.txt.lppl	2015-05-07 16:51:32.623263721 -0400
++++ scribus-1.4.5/resources/dicts/README_is_IS.txt	2015-05-07 16:51:53.072114610 -0400
+@@ -2,15 +2,14 @@ Hyphenation dictionary
+ ----------------------
+ 
+ Language: Icelandic (Iceland) (is IS).
+-Origin:   Based on the TeX hyphenation tables
++Origin:   Based on the TeX hyphenation tables by Jï¿½rgen Pind (1987).
++          http://www.ctan.org/tex-archive/language/hyphenation/dkhyphn/dkhyphn.tex
++          The TeX hyphenation tables are released under the LaTeX Project
++          Public License (LPPL)
+ License:  LGPL/SISSL license, 2003
+ Author:   akig@hi.is (Áki G. Karlsson)
+ 
+ HYPH is IS hyph_is_IS
+-
+-
+- These patterns were converted from TeX hyphenation patterns by Jörgen Pind
+- (1987).
+  
+  -- 
+  Áki G. Karlsson

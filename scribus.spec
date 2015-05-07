@@ -1,9 +1,7 @@
 Name:           scribus
-Version:        1.4.4
-Release:        7%{?dist}
-
+Version:        1.4.5
+Release:        1%{?dist}
 Summary:        DeskTop Publishing application written in Qt
-
 Group:          Applications/Productivity
 License:        GPLv2+
 URL:            http://www.scribus.net/
@@ -14,9 +12,10 @@ Source0:        %{name}-%{version}-free.tar.xz
 Patch1:         %{name}-1.4.4-qreal_double.patch
 # fix build with non-free content removed
 Patch2:         %{name}-1.4.2-nonfree.patch
+# Fix necessary LPPL attribution
+Patch3:         %{name}-1.4.5-lppl-fixes.patch
 
 BuildRequires:  cmake
-
 BuildRequires:  cups-devel
 BuildRequires:  desktop-file-utils
 BuildRequires:  lcms2-devel
@@ -64,6 +63,7 @@ import/export and creation of color separations.
 %setup -q
 %patch1 -p1 -b .double
 %patch2 -p1 -b .nonfree
+%patch3 -p1
 
 # recode man page to UTF-8
 pushd scribus/manpages
@@ -185,6 +185,11 @@ update-mime-database %{?fedora:-n} %{_datadir}/mime &> /dev/null || :
 
 
 %changelog
+* Thu May  7 2015 Tom Callaway <spot@fedoraproject.org> 1.4.5-1
+- update to 1.4.5
+- drop non-free and questionable hyphen dic files (bz 1219415)
+- fix necessary LPPL attributions
+
 * Thu Mar 26 2015 Richard Hughes <rhughes@redhat.com> - 1.4.4-7
 - Add an AppData file for the software center
 

@@ -8,14 +8,14 @@ fi
 version=$1
 nv=scribus-${version}
 
-archive=${nv}.tar.xz
+archive=${nv}.tar.bz2
 freearchive=${nv}-free.tar.xz
 
-[ -f ${archive} ] || curl -O http://downloads.sourceforge.net/scribus/scribus-${version}.tar.xz
+[ -f ${archive} ] || curl -OL http://downloads.sourceforge.net/scribus/scribus-${version}.tar.bz2
 
 echo "Extracting sources ..."
 rm -rf ${nv}
-xzcat $archive | tar xf -
+tar -xf $archive
 
 pushd ${nv}
 
@@ -36,6 +36,12 @@ rm resources/swatches/Federal_Identity_Program.xml
 
 # Remove non-free (CC-BY-SA-NC) dot files
 rm resources/editorconfig/dot.*
+
+# Remove non-free dic files
+rm resources/dicts/hyph_fi.dic
+
+# Remove license unknown dic files
+rm resources/dicts/hyph_ia.dic resources/dicts/hyph_sv.dic
 
 popd
 
