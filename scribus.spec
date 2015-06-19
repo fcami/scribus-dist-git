@@ -1,6 +1,6 @@
 Name:           scribus
 Version:        1.4.5
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        DeskTop Publishing application written in Qt
 Group:          Applications/Productivity
 License:        GPLv2+
@@ -185,6 +185,9 @@ update-mime-database %{?fedora:-n} %{_datadir}/mime &> /dev/null || :
 
 
 %changelog
+* Fri Jun 19 2015 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.4.5-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_23_Mass_Rebuild
+
 * Thu May  7 2015 Tom Callaway <spot@fedoraproject.org> 1.4.5-1
 - update to 1.4.5
 - drop non-free and questionable hyphen dic files (bz 1219415)
