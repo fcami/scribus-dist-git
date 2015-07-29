@@ -1,6 +1,6 @@
 Name:           scribus
 Version:        1.4.5
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        DeskTop Publishing application written in Qt
 Group:          Applications/Productivity
 License:        GPLv2+
@@ -185,6 +185,9 @@ update-mime-database %{?fedora:-n} %{_datadir}/mime &> /dev/null || :
 
 
 %changelog
+* Wed Jul 29 2015 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.4.5-4
+- Rebuilt for https://fedoraproject.org/wiki/Changes/F23Boost159
+
 * Wed Jul 22 2015 David Tardon <dtardon@redhat.com> - 1.4.5-3
 - rebuild for Boost 1.58
 
