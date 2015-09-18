@@ -1,6 +1,6 @@
 Name:           scribus
 Version:        1.4.5
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        DeskTop Publishing application written in Qt
 Group:          Applications/Productivity
 License:        GPLv2+
@@ -9,6 +9,7 @@ URL:            http://www.scribus.net/
 Source0:        %{name}-%{version}-free.tar.xz
 #Source0:        http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.xz
 #Source1:        http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.xz.asc
+Source2:        scribus.png
 Patch1:         %{name}-1.4.4-qreal_double.patch
 # fix build with non-free content removed
 Patch2:         %{name}-1.4.2-nonfree.patch
@@ -98,7 +99,7 @@ pushd build
 make install DESTDIR=$RPM_BUILD_ROOT
 popd
 
-install -p -D -m0644 ${RPM_BUILD_ROOT}%{_datadir}/scribus/icons/scribus.png ${RPM_BUILD_ROOT}%{_datadir}/pixmaps/scribus.png
+install -p -D -m0644 %SOURCE2 ${RPM_BUILD_ROOT}%{_datadir}/pixmaps/scribus.png
 install -p -D -m0644 ${RPM_BUILD_ROOT}%{_datadir}/scribus/icons/scribusdoc.png ${RPM_BUILD_ROOT}%{_datadir}/pixmaps/x-scribus.png
 
 find ${RPM_BUILD_ROOT} -type f -name "*.la" -exec rm -f {} ';'
@@ -185,6 +186,9 @@ update-mime-database %{?fedora:-n} %{_datadir}/mime &> /dev/null || :
 
 
 %changelog
+* Fri Sep 18 2015 Richard Hughes <rhughes@redhat.com> - 1.4.5-6
+- Use a bigger resolution application icon
+
 * Thu Aug 27 2015 Jonathan Wakely <jwakely@redhat.com> - 1.4.5-5
 - Rebuilt for Boost 1.59
 
