@@ -1,9 +1,10 @@
 Name:           scribus
 Version:        1.4.5
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        DeskTop Publishing application written in Qt
 Group:          Applications/Productivity
-License:        GPLv2+
+# swatches bring in the fun licenses
+License:        GPLv2+ and OGL and CC0 and CC-BY and CC-BY-SA and Public Domain and ASL 2.0 and LGPLv2+ 
 URL:            http://www.scribus.net/
 # ./make-free-archive %{version}
 Source0:        %{name}-%{version}-free.tar.xz
@@ -186,6 +187,9 @@ update-mime-database %{?fedora:-n} %{_datadir}/mime &> /dev/null || :
 
 
 %changelog
+* Tue Jan 12 2016 Tom Callaway <spot@fedoraproject.org> - 1.4.5-7
+- fix license tag, remove found non-free swatches (bz 1297262)
+
 * Fri Sep 18 2015 Richard Hughes <rhughes@redhat.com> - 1.4.5-6
 - Use a bigger resolution application icon
 

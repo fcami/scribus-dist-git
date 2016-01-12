@@ -29,6 +29,11 @@ rm scribus/profiles/{sRGB.icm,srgb.license}
 rm resources/swatches/*.eps
 rm resources/swatches/dtp-studio-free-palettes-license.rtf
 
+rm resources/swatches/Galaxy_*
+rm resources/swatches/Resene_*
+rm resources/swatches/COPYING_RESENE.txt
+rm resources/swatches/NAA*
+
 rm resources/swatches/GiveLife_Color_System_*.xml
 rm resources/swatches/givelife_colors_license.rtf
 
