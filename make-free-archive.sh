@@ -8,14 +8,14 @@ fi
 version=$1
 nv=scribus-${version}
 
-archive=${nv}.tar.bz2
+archive=${nv}.tar.xz
 freearchive=${nv}-free.tar.xz
 
-[ -f ${archive} ] || curl -OL http://downloads.sourceforge.net/scribus/scribus-${version}.tar.bz2
+[ -f ${archive} ] || curl -OL http://downloads.sourceforge.net/scribus/scribus-${version}.tar.xz
 
 echo "Extracting sources ..."
 rm -rf ${nv}
-tar -xf $archive
+tar -xJf $archive
 
 pushd ${nv}
 

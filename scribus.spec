@@ -1,6 +1,6 @@
 Name:           scribus
-Version:        1.4.5
-Release:        9%{?dist}
+Version:        1.4.6
+Release:        1%{?dist}
 Summary:        DeskTop Publishing application written in Qt
 Group:          Applications/Productivity
 # swatches bring in the fun licenses
@@ -187,6 +187,9 @@ update-mime-database %{?fedora:-n} %{_datadir}/mime &> /dev/null || :
 
 
 %changelog
+* Tue May 24 2016 Jon Ciesla <limburgher@gmail.com> - 1.4.6-1
+- 1.4.6
+
 * Thu Feb 04 2016 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.5-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_24_Mass_Rebuild
 
