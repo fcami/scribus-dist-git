@@ -1,6 +1,6 @@
 Name:           scribus
 Version:        1.4.6
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        DeskTop Publishing application written in Qt
 Group:          Applications/Productivity
 # swatches bring in the fun licenses
@@ -187,6 +187,9 @@ update-mime-database %{?fedora:-n} %{_datadir}/mime &> /dev/null || :
 
 
 %changelog
+* Fri Jan 27 2017 Jonathan Wakely <jwakely@redhat.com> - 1.4.6-3
+- Rebuilt for Boost 1.63
+
 * Fri Sep 23 2016 Jon Ciesla <limburgher@gmail.com> - 1.4.6-2
 - podofo rebuild.
 
