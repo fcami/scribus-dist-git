@@ -1,6 +1,6 @@
 Name:           scribus
 Version:        1.4.6
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        DeskTop Publishing application written in Qt
 Group:          Applications/Productivity
 # swatches bring in the fun licenses
@@ -16,6 +16,8 @@ Patch1:         %{name}-1.4.4-qreal_double.patch
 Patch2:         %{name}-1.4.2-nonfree.patch
 # Fix necessary LPPL attribution
 Patch3:         %{name}-1.4.5-lppl-fixes.patch
+# Fix detection of hunspell-1.4
+Patch4:         %{name}-1.4.6-hunspell14.patch
 
 BuildRequires:  cmake
 BuildRequires:  cups-devel
@@ -66,6 +68,7 @@ import/export and creation of color separations.
 %patch1 -p1 -b .double
 %patch2 -p1 -b .nonfree
 %patch3 -p1
+%patch4 -p1
 
 # recode man page to UTF-8
 pushd scribus/manpages
@@ -187,6 +190,9 @@ update-mime-database %{?fedora:-n} %{_datadir}/mime &> /dev/null || :
 
 
 %changelog
+* Fri Apr 07 2017 Yaakov Selkowitz <yselkowi@redhat.com> - 1.4.6-6
+- Fix detection of hunspell-1.4 for spell-checking support (#1425305)
+
 * Mon Feb 06 2017 Kalev Lember <klember@redhat.com> - 1.4.6-5
 - Rebuilt for Boost 1.63
 
