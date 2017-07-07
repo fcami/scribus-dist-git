@@ -1,6 +1,6 @@
 Name:           scribus
 Version:        1.4.6
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        DeskTop Publishing application written in Qt
 Group:          Applications/Productivity
 # swatches bring in the fun licenses
@@ -190,6 +190,9 @@ update-mime-database %{?fedora:-n} %{_datadir}/mime &> /dev/null || :
 
 
 %changelog
+* Fri Jul 07 2017 Igor Gnatenko <ignatenko@redhat.com> - 1.4.6-7
+- Rebuild due to bug in RPM (RHBZ #1468476)
+
 * Fri Apr 07 2017 Yaakov Selkowitz <yselkowi@redhat.com> - 1.4.6-6
 - Fix detection of latest hunspell for spell-checking support (#1425305)
 
