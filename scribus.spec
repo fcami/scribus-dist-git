@@ -1,6 +1,6 @@
 Name:           scribus
 Version:        1.4.6
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        DeskTop Publishing application written in Qt
 Group:          Applications/Productivity
 # swatches bring in the fun licenses
@@ -29,8 +29,8 @@ BuildRequires:  libpng-devel
 BuildRequires:  libtiff-devel
 BuildRequires:  libxml2-devel
 BuildRequires:  openssl-devel
-BuildRequires:  python-devel
-BuildRequires:  python-imaging-devel
+BuildRequires:  python2-devel
+BuildRequires:  python2-imaging-devel
 BuildRequires:  qt4-devel
 BuildRequires:  zlib-devel
 BuildRequires:  freetype-devel
@@ -41,9 +41,9 @@ BuildRequires:  boost-devel
 BuildRequires:  podofo-devel
 BuildRequires:  hyphen-devel
 Requires:       ghostscript
-Requires:       python
-Requires:       python-imaging
-Requires:       tkinter
+Requires:       python2
+Requires:       python2-imaging
+Requires:       python2-tkinter
 Requires:       shared-mime-info
 Obsoletes:      %{name}-doc < %{version}-%{release}
 Obsoletes:      %{name}-devel < %{version}-%{release}
@@ -190,6 +190,10 @@ update-mime-database %{?fedora:-n} %{_datadir}/mime &> /dev/null || :
 
 
 %changelog
+* Mon Feb 12 2018 Iryna Shcherbina <ishcherb@redhat.com> - 1.4.6-11
+- Update Python 2 dependency declarations to new packaging standards
+  (See https://fedoraproject.org/wiki/FinalizingFedoraSwitchtoPython3)
+
 * Fri Feb 09 2018 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.6-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
 
