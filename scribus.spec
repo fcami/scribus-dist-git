@@ -1,6 +1,6 @@
 Name:           scribus
 Version:        1.4.6
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        DeskTop Publishing application written in Qt
 Group:          Applications/Productivity
 # swatches bring in the fun licenses
@@ -190,6 +190,9 @@ update-mime-database %{?fedora:-n} %{_datadir}/mime &> /dev/null || :
 
 
 %changelog
+* Wed Jul 11 2018 Sandro Mani <manisandro@gmail.com> - 1.4.6-12
+- Rebuild (podofo)
+
 * Mon Feb 12 2018 Iryna Shcherbina <ishcherb@redhat.com> - 1.4.6-11
 - Update Python 2 dependency declarations to new packaging standards
   (See https://fedoraproject.org/wiki/FinalizingFedoraSwitchtoPython3)
