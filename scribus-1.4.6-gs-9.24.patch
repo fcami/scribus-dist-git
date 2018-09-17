@@ -1,0 +1,10 @@
+--- scribus-1.4.6-orig/scribus/plugins/import/ps/import.prolog	2009-05-08 21:04:32.000000000 +0200
++++ scribus-1.4.6/scribus/plugins/import/ps/import.prolog	2018-09-17 16:05:24.988900385 +0200
+@@ -75,6 +75,7 @@
+ 	//doimage exec
+ } .forceput
+ end
++/.currentopacityalpha {//.currentopacityalpha} bind def
+ setglobal
+ .bindnow
+ 

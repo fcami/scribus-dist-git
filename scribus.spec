@@ -1,6 +1,6 @@
 Name:           scribus
 Version:        1.4.6
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        DeskTop Publishing application written in Qt
 Group:          Applications/Productivity
 # swatches bring in the fun licenses
@@ -18,6 +18,7 @@ Patch2:         %{name}-1.4.2-nonfree.patch
 Patch3:         %{name}-1.4.5-lppl-fixes.patch
 # Fix detection of hunspell-1.4+
 Patch4:         %{name}-1.4.6-hunspell.patch
+Patch5:         %{name}-1.4.6-gs-9.24.patch
 
 BuildRequires:  cmake
 BuildRequires:  cups-devel
@@ -69,6 +70,7 @@ import/export and creation of color separations.
 %patch2 -p1 -b .nonfree
 %patch3 -p1
 %patch4 -p1
+%patch5 -p1
 
 # recode man page to UTF-8
 pushd scribus/manpages
@@ -190,6 +192,9 @@ update-mime-database %{?fedora:-n} %{_datadir}/mime &> /dev/null || :
 
 
 %changelog
+* Mon Sep 17 2018 Michael J Gruber <mjg@fedoraproject.org> - 1.4.6-14
+- fix EPS import (bz #1628943)
+
 * Sat Jul 14 2018 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.6-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
 
