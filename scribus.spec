@@ -2,7 +2,6 @@ Name:           scribus
 Version:        1.4.6
 Release:        15%{?dist}
 Summary:        DeskTop Publishing application written in Qt
-Group:          Applications/Productivity
 # swatches bring in the fun licenses
 License:        GPLv2+ and OGL and CC0 and CC-BY and CC-BY-SA and Public Domain and ASL 2.0 and LGPLv2+ 
 URL:            http://www.scribus.net/
