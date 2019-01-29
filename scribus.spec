@@ -158,22 +158,6 @@ SentUpstream: 2014-09-18
 </application>
 EOF
 
-%post
-touch --no-create %{_datadir}/mime/packages &> /dev/null || :
-
-%postun
-if [ $1 -eq 0 ] ; then
-touch --no-create %{_datadir}/mime/packages &> /dev/null || :
-update-desktop-database &> /dev/null || :
-update-mime-database %{?fedora:-n} %{_datadir}/mime &> /dev/null || :
-fi
-
-%posttrans
-update-desktop-database &> /dev/null || :
-update-mime-database %{?fedora:-n} %{_datadir}/mime &> /dev/null || :
-
-
-
 %files
 %doc AUTHORS ChangeLog COPYING LINKS README
 %{_bindir}/%{name}
