@@ -1,6 +1,6 @@
 Name:           scribus
 Version:        1.4.6
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        DeskTop Publishing application written in Qt
 # swatches bring in the fun licenses
 License:        GPLv2+ and OGL and CC0 and CC-BY and CC-BY-SA and Public Domain and ASL 2.0 and LGPLv2+ 
@@ -175,6 +175,9 @@ EOF
 
 
 %changelog
+* Sat Feb 02 2019 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.6-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
+
 * Tue Nov 13 2018 Caolán McNamara <caolanm@redhat.com> - 1.4.6-15
 - rebuild for hunspell-1.7.0
 
