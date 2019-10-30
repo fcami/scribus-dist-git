@@ -1,0 +1,9 @@
+diff -rU2 scribus-1.5.6/CMakeLists.txt scribus-1.5.6-b/CMakeLists.txt
+--- scribus-1.5.6/CMakeLists.txt	2019-10-30 23:15:41.121691229 +0100
++++ scribus-1.5.6-b/CMakeLists.txt	2019-10-31 00:23:41.793924107 +0100
+@@ -441,5 +441,4 @@
+ #Add our source subdirs
+ add_subdirectory(scribus)
+-add_subdirectory(doc)
+ add_subdirectory(resources/dicts)
+ add_subdirectory(resources/editorconfig)

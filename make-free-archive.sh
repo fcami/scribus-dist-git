@@ -20,10 +20,10 @@ tar -xJf $archive
 pushd ${nv}
 
 # remove docs
-rm -r scribus/doc
+rm -r doc
 
 # remove non-free profile
-rm scribus/profiles/{sRGB.icm,srgb.license}
+rm resources/profiles/{sRGB.icm,srgb.license}
 
 # remove non-free content from swatches
 rm resources/swatches/*.eps

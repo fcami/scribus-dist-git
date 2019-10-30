@@ -1,10 +1,12 @@
 Name:           scribus
-Version:        1.4.6
-Release:        17%{?dist}
+Version:        1.5.6
+Release:        0.1%{?dist}
 Summary:        DeskTop Publishing application written in Qt
 # swatches bring in the fun licenses
 License:        GPLv2+ and OGL and CC0 and CC-BY and CC-BY-SA and Public Domain and ASL 2.0 and LGPLv2+ 
 URL:            http://www.scribus.net/
+# svn co svn://scribus.net/trunk/Scribus scribus-%{version}
+# tar cJf scribus-%{version}.tar.xz 
 # ./make-free-archive %{version}
 Source0:        %{name}-%{version}-free.tar.xz
 #Source0:        http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.xz
@@ -18,6 +20,7 @@ Patch3:         %{name}-1.4.5-lppl-fixes.patch
 # Fix detection of hunspell-1.4+
 Patch4:         %{name}-1.4.6-hunspell.patch
 Patch5:         %{name}-1.4.6-gs-9.24.patch
+Patch6:         %{name}-1.5-remove-doc.patch
 
 BuildRequires:  cmake
 BuildRequires:  cups-devel
@@ -29,8 +32,8 @@ BuildRequires:  libpng-devel
 BuildRequires:  libtiff-devel
 BuildRequires:  libxml2-devel
 BuildRequires:  openssl-devel
-BuildRequires:  python2-devel
-BuildRequires:  python2-imaging-devel
+BuildRequires:  python3-devel
+BuildRequires:  python3-imaging-devel
 BuildRequires:  qt4-devel
 BuildRequires:  zlib-devel
 BuildRequires:  freetype-devel
@@ -40,10 +43,12 @@ BuildRequires:  hunspell-devel
 BuildRequires:  boost-devel
 BuildRequires:  podofo-devel
 BuildRequires:  hyphen-devel
+BuildRequires:  libwpg-devel
+BuildRequires:  poppler-cpp-devel
 Requires:       ghostscript
-Requires:       python2
-Requires:       python2-imaging
-Requires:       python2-tkinter
+Requires:       python3
+Requires:       python3-imaging
+Requires:       python3-tkinter
 Requires:       shared-mime-info
 Obsoletes:      %{name}-doc < %{version}-%{release}
 Obsoletes:      %{name}-devel < %{version}-%{release}
@@ -65,14 +70,15 @@ import/export and creation of color separations.
 
 %prep
 %setup -q
-%patch1 -p1 -b .double
-%patch2 -p1 -b .nonfree
-%patch3 -p1
-%patch4 -p1
-%patch5 -p1
+#%patch1 -p1 -b .double
+#%patch2 -p1 -b .nonfree
+#%patch3 -p1
+#%patch4 -p1
+#%patch5 -p1
+%patch6 -p1
 
 # recode man page to UTF-8
-pushd scribus/manpages
+pushd resources/manpages
 iconv -f ISO8859-2 -t UTF-8 scribus.1.pl > tmp
 touch -r scribus.1.pl tmp
 mv tmp scribus.1.pl
@@ -175,6 +181,9 @@ EOF
 
 
 %changelog
+* Wed Oct 30 2019 François Cami <fcami@fedoraproject.org> - 1.5.6-0.1
+- Ship 1.5.6 pre-release (svn r23306) to switch to Python3
+
 * Fri Jul 26 2019 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.6-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
 
